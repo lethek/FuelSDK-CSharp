@@ -323,8 +323,6 @@ namespace FuelSDK
                 return;
             }
 
-            // workaround to support TLS 1.2 in .NET 4.0
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             // RefreshToken
             if (!string.IsNullOrEmpty(AuthToken) && DateTime.Now.AddSeconds(300) <= AuthTokenExpiration && !force)
                 return;
@@ -396,8 +394,6 @@ namespace FuelSDK
 
         internal void RefreshTokenWithOauth2(bool force = false)
         {
-            // workaround to support TLS 1.2 in .NET 4.0
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             // RefreshToken
             if (!string.IsNullOrEmpty(AuthToken) && DateTime.Now.AddSeconds(300) <= AuthTokenExpiration && !force)
                 return;
