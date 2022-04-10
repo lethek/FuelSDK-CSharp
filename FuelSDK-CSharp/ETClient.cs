@@ -9,6 +9,7 @@ using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.Xml.Linq;
 using JWT;
+using JWT.Algorithms;
 using JWT.Serializers;
 using Newtonsoft.Json.Linq;
 
@@ -263,7 +264,8 @@ namespace FuelSDK
             IDateTimeProvider provider = new UtcDateTimeProvider();
             IJwtValidator validator = new JwtValidator(serializer, provider);
             IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();
-            IJwtDecoder decoder = new JwtDecoder(serializer, validator, urlEncoder);
+            IJwtAlgorithm algorithm = new HMACSHA256Algorithm();
+            IJwtDecoder decoder = new JwtDecoder(serializer, validator, urlEncoder, algorithm);
 
             var json = decoder.Decode(jwt, key, true);
             return json;
