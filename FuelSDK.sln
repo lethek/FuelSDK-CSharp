@@ -9,13 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "objsamples", "samples\objsa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuelSDK.Tests", "tests\FuelSDK.Tests\FuelSDK.Tests.csproj", "{08451C56-0ABB-4378-8526-DF1E159D9BD6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{217C661B-3CF6-4835-B811-F8698E46523E}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\packages.config = .nuget\packages.config
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0D76AC0C-1D08-4A45-8EA0-69B1C0002CB6}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		license.md = license.md
 		readme.md = readme.md
 	EndProjectSection
@@ -26,7 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{45285DEF-86D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{D43EE7FE-52BA-456E-B663-5C9C9A2E7ECA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuelSDK.IntegrationTests", "tests\FuelSDK.IntegrationTests\FuelSDK.IntegrationTests.csproj", "{45E7E1AF-9A20-47F9-AA05-072499324E2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuelSDK.IntegrationTests", "tests\FuelSDK.IntegrationTests\FuelSDK.IntegrationTests.csproj", "{45E7E1AF-9A20-47F9-AA05-072499324E2C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
