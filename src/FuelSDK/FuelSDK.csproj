@@ -2,8 +2,6 @@
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
 		<TargetFrameworks>netstandard2.0;netstandard2.1;net6.0</TargetFrameworks>
-		<ApplicationIcon />
-		<StartupObject />
 		<LangVersion>latest</LangVersion>
 		<Copyright>Copyright © Salesforce 2017</Copyright>
 		<RepositoryUrl>https://github.com/lethek/FuelSDK-CSharp</RepositoryUrl>
@@ -14,6 +12,7 @@
 		<Description>The Fuel SDK for C# provides easy access to Salesforce Marketing Cloud's (ExactTarget) Fuel API Family services, including a collection of REST APIs and a SOAP API. These APIs provide access to Salesforce Marketing Cloud functionality via common collection types.</Description>
 		<PackageTags>FuelSdk;Salesforce Marketing Cloud;ExactTarget;SFMC;Salesforce</PackageTags>
 		<AnalysisLevel>latest</AnalysisLevel>
+		<UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
 	</PropertyGroup>
 	<ItemGroup>
 		<InternalsVisibleTo Include="$(AssemblyName).Tests" />

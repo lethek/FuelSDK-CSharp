@@ -44,10 +44,10 @@ jobs:
       run: dotnet test --configuration ${{ env.buildConfiguration }} --no-build --verbosity normal --filter FullyQualifiedName!~IntegrationTests
 
     - name: Pack
-      run: dotnet pack --configuration ${{ env.buildConfiguration }} --no-build --output ${{ github.workspace }}/artifacts/ /p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersion }}
+      run: dotnet pack --configuration ${{ env.buildConfiguration }} --no-build --output "${{ github.workspace }}/artifacts/"
 
     - name: Push
-      run: dotnet nuget push ${{ github.workspace }}/artifacts/*.nupkg -s $NUGET_SOURCE -k $NUGET_API_KEY
+      run: dotnet nuget push "${{ github.workspace }}/artifacts/*.nupkg" -s $NUGET_SOURCE -k $NUGET_API_KEY
       env:
         NUGET_SOURCE: ${{ secrets.NUGET_SOURCE }}
         NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
