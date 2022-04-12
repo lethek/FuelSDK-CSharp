@@ -23,7 +23,7 @@ namespace FuelSDK
         /// </summary>
 		public ETEndpoint()
 		{
-            Endpoint = AuthStub.Settings.RestEndPoint + "/platform/v1/endpoints/{Type}";
+            Endpoint = AuthStub.RestEndPoint + "/platform/v1/endpoints/{Type}";
 			URLProperties = new[] { "Type" };
 			RequiredURLProperties = Array.Empty<string>();
 		}
@@ -33,11 +33,14 @@ namespace FuelSDK
         /// <param name="obj">Javascript Object.</param>
 		public ETEndpoint(JObject obj)
 		{
-			if (obj["type"] != null)
-				Type = CleanRestValue(obj["type"]).ToString().Trim();
-			if (obj["url"] != null)
-				URL = CleanRestValue(obj["url"]);
-		}
+			if (obj["type"] != null) {
+                Type = CleanRestValue(obj["type"]).ToString().Trim();
+            }
+
+            if (obj["url"] != null) {
+                URL = CleanRestValue(obj["url"]);
+            }
+        }
 		/// Get this instance.
 		/// </summary>
 		/// <returns>The <see cref="T:FuelSDK.GetReturn"/> object..</returns>

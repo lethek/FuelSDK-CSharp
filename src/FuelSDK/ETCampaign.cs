@@ -38,7 +38,7 @@ namespace FuelSDK
         /// </summary>
 		public ETCampaign()
 		{
-            Endpoint = AuthStub.Settings.RestEndPoint + "/hub/v1/campaigns/{ID}";
+            Endpoint = AuthStub.RestEndPoint + "/hub/v1/campaigns/{ID}";
 			URLProperties = new[] { "ID" };
 			RequiredURLProperties = Array.Empty<string>();
 		}

@@ -10,9 +10,8 @@ using System.Xml.Linq;
 using JWT;
 using JWT.Algorithms;
 using JWT.Serializers;
-
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
-
 
 namespace FuelSDK;
 
@@ -22,8 +21,6 @@ namespace FuelSDK;
 public class ETClient
 {
     public const string SDKVersion = "FuelSDK-C#-v1.3.0";
-
-    public FuelSettings Settings { get; private set; }
 
     public string AuthToken { get; private set; }
     public SoapClient SoapClient { get; private set; }
@@ -35,6 +32,9 @@ public class ETClient
     public string OrganizationId { get; private set; }
 
     public bool UseOAuth2Authentication => Settings.UseOAuth2Authentication;
+    public string AuthEndPoint => Settings.AuthEndPoint;
+    public string SoapEndPoint => Settings.SoapEndPoint;
+    public string RestEndPoint => Settings.RestEndPoint;
 
 
     [Obsolete(StackKeyErrorMessage)]
@@ -43,13 +43,6 @@ public class ETClient
         private init => _stackKey = value;
     }
     private string _stackKey;
-
-
-    private static DateTime soapEndPointExpiration;
-    private static string fetchedSoapEndpoint;
-    private const long cacheDurationInMinutes = 10;
-
-    private const string StackKeyErrorMessage = "Tenant specific endpoints don't support Stack Key property and this will property will be deprecated in next major release";
 
 
     public class RefreshState
@@ -62,13 +55,19 @@ public class ETClient
 
 
     public ETClient(string jwt)
-        : this(new FuelSettings { Jwt = jwt }, null) { }
+        : this(CreateOptions(new FuelSettings { Jwt = jwt }), null)
+    { }
 
 
-    public ETClient(FuelSettings parameters, RefreshState refreshState = null)
+    public ETClient(FuelSettings settings, RefreshState refreshState = null)
+        : this(CreateOptions(settings), refreshState)
+    { }
+
+
+    public ETClient(IOptions<FuelSettings> settings, RefreshState refreshState = null)
     {
         // Get configuration file and set variables
-        Settings = (parameters ?? new FuelSettings())
+        Settings = (settings.Value ?? new FuelSettings())
             .WithDefaultAuthEndpoint(DefaultEndpoints.Auth)
             .WithDefaultRestEndpoint(DefaultEndpoints.Rest);
 
@@ -77,10 +76,8 @@ public class ETClient
         }
 
         if (Settings.ApplicationType.Equals("public") || Settings.ApplicationType.Equals("web")) {
-            if (String.IsNullOrEmpty(Settings.AuthorizationCode) || string.IsNullOrEmpty(Settings.RedirectURI)) {
-                throw new Exception(
-                    "AuthorizationCode or RedirectURI is null: For Public/Web Apps, AuthCode and Redirect URI must be provided in config file or passed when instantiating ETClient"
-                );
+            if (String.IsNullOrEmpty(Settings.AuthorizationCode) || String.IsNullOrEmpty(Settings.RedirectURI)) {
+                throw new Exception("AuthorizationCode or RedirectURI is null: For Public/Web Apps, AuthCode and Redirect URI must be provided in config file or passed when instantiating ETClient");
             }
         }
 
@@ -89,7 +86,7 @@ public class ETClient
                 throw new Exception("clientId is null: Must be provided in config file or passed when instantiating ETClient");
             }
         } else {
-            if (String.IsNullOrEmpty(Settings.ClientId) || string.IsNullOrEmpty(Settings.ClientSecret)) {
+            if (String.IsNullOrEmpty(Settings.ClientId) || String.IsNullOrEmpty(Settings.ClientSecret)) {
                 throw new Exception("clientId or clientSecret is null: Must be provided in config file or passed when instantiating ETClient");
             }
         }
@@ -158,7 +155,7 @@ public class ETClient
                     ObjectType = "BusinessUnit",
                     Properties = new[] { "ID", "Client.EnterpriseID" }
                 },
-                out string _,
+                out var _,
                 out var results
             );
 
@@ -234,10 +231,10 @@ public class ETClient
                 MessageVersion = MessageVersion.Soap12WSAddressingAugust2004,
                 ReaderQuotas = {
                     MaxDepth = 32,
-                    MaxStringContentLength = int.MaxValue,
-                    MaxArrayLength = int.MaxValue,
-                    MaxBytesPerRead = int.MaxValue,
-                    MaxNameTableCharCount = int.MaxValue
+                    MaxStringContentLength = Int32.MaxValue,
+                    MaxArrayLength = Int32.MaxValue,
+                    MaxBytesPerRead = Int32.MaxValue,
+                    MaxNameTableCharCount = Int32.MaxValue
                 }
             },
             new HttpsTransportBindingElement {
@@ -251,10 +248,10 @@ public class ETClient
         return new CustomBinding(bindingCollection) {
             Name = "UserNameSoapBinding",
             Namespace = "Core.Soap",
-            CloseTimeout = new TimeSpan(0, 50, 0),
-            OpenTimeout = new TimeSpan(0, 50, 0),
-            ReceiveTimeout = new TimeSpan(0, 50, 0),
-            SendTimeout = new TimeSpan(0, 50, 0)
+            CloseTimeout = TimeSpan.FromMinutes(50),
+            OpenTimeout = TimeSpan.FromMinutes(50),
+            ReceiveTimeout = TimeSpan.FromMinutes(50),
+            SendTimeout = TimeSpan.FromMinutes(50)
         };
     }
 
@@ -419,4 +416,21 @@ public class ETClient
         return new PostReturn(cleanedArray.ToArray());
     }
 
+
+    private FuelSettings Settings {
+        get => _settings.Value;
+        set => _settings = CreateOptions(value);
+    }
+    private IOptions<FuelSettings> _settings;
+
+    
+    private static IOptions<T> CreateOptions<T>(T obj) where T : class
+        => Microsoft.Extensions.Options.Options.Create(obj);
+
+
+    private const long cacheDurationInMinutes = 10;
+    private const string StackKeyErrorMessage = "Tenant specific endpoints don't support Stack Key property and this will property will be deprecated in next major release";
+
+    private static DateTime soapEndPointExpiration;
+    private static string fetchedSoapEndpoint;
 }
