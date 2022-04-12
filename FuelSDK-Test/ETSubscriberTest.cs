@@ -1,12 +1,8 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace FuelSDK.Test
 {
-    class ETSubscriberTest
+    class ETSubscriberTest : CommonTestFixture
     {
         ETClient client;
         ETSubscriber subscriber;
@@ -17,7 +13,7 @@ namespace FuelSDK.Test
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
-            client = new ETClient();
+            client = new ETClient(GetSettings());
         }
         [SetUp]
         public void Setup()
@@ -54,14 +50,14 @@ namespace FuelSDK.Test
             }
         }
 
-        [Test()]
+        [Test]
         public void SubscriberCreate()
         {
             Assert.AreNotEqual(subscriber, null);
             Assert.AreEqual(subscriber.EmailAddress, subsEmail);
         }
 
-        [Test()]
+        [Test]
         public void SubscriberGet()
         {
             var subsObj = new ETSubscriber
@@ -77,7 +73,7 @@ namespace FuelSDK.Test
             Assert.AreEqual(subs.EmailAddress, subsEmail);
         }
 
-        [Test()]
+        [Test]
         public void SubscriberUpdate()
         {
             var subsObj = new ETSubscriber
@@ -93,7 +89,7 @@ namespace FuelSDK.Test
             Assert.AreEqual(response.Results[0].StatusMessage, "Updated Subscriber.");
         }
 
-        [Test()]
+        [Test]
         public void SubscriberDelete()
         {
             var subsObj = new ETSubscriber

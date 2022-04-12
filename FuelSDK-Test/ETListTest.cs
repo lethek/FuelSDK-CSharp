@@ -1,12 +1,8 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace FuelSDK.Test
 {
-    class ETListTest
+    class ETListTest : CommonTestFixture
     {
         ETClient client;
         ETList list;
@@ -17,7 +13,7 @@ namespace FuelSDK.Test
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
-            client = new ETClient();
+            client = new ETClient(GetSettings());
         }
 
         [SetUp]
@@ -55,13 +51,13 @@ namespace FuelSDK.Test
             }
         }
 
-        [Test()]
+        [Test]
         public void ListCreate()
         {
             Assert.AreNotEqual(list, null);
         }
 
-        [Test()]
+        [Test]
         public void ListUpdate()
         {
             var list = new ETList
@@ -91,7 +87,7 @@ namespace FuelSDK.Test
             Assert.AreEqual(getlist.Description, listUpdatedDesc);
         }
 
-        [Test()]
+        [Test]
         public void ListDelete()
         {
             var list = new ETList
@@ -105,7 +101,7 @@ namespace FuelSDK.Test
             this.list = null;
         }
 
-        [Test()]
+        [Test]
         public void ListGet()
         {
             list = new ETList
@@ -123,7 +119,7 @@ namespace FuelSDK.Test
             Assert.AreEqual(getlist.Description, listDesc);
         }
 
-        [Test()]
+        [Test]
         public void ListSubscriberAdd()
         { 
             //list is already created in the setup

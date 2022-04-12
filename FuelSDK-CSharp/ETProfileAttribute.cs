@@ -8,7 +8,4 @@ namespace FuelSDK
     {
         
     }
-    
-    [Obsolete("ET_ProfileAttribute will be removed in future release. Please use ETProfileAttribute instead.")]
-    public class ET_ProfileAttribute : ETProfileAttribute { }
 }

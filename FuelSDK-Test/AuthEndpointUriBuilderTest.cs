@@ -8,7 +8,7 @@ namespace FuelSDK.Test
         [Test]
         public void BuilderAddsLegacyQueryParamWhenNoParamsArePresent()
         {
-            FuelSDKConfigurationSection configSection = GetCustomConfigurationSectionFromConfigFile(authEndpointMissingLegacyQueryParamFileName);
+            var configSection = GetCustomConfigurationSectionFromConfigFile(authEndpointMissingLegacyQueryParamFileName);
 
             AuthEndpointUriBuilder builder = new AuthEndpointUriBuilder(configSection);
             var uri = builder.Build();
@@ -19,7 +19,7 @@ namespace FuelSDK.Test
         [Test]
         public void BuilderReturnsCorrectAuthEndpointUriWhenLegacyQueryIsPresent()
         {
-            FuelSDKConfigurationSection configSection = GetCustomConfigurationSectionFromConfigFile(authEndpointWithLegacyQueryParamFileName);
+            var configSection = GetCustomConfigurationSectionFromConfigFile(authEndpointWithLegacyQueryParamFileName);
 
             AuthEndpointUriBuilder builder = new AuthEndpointUriBuilder(configSection);
             var uri = builder.Build();
@@ -30,7 +30,7 @@ namespace FuelSDK.Test
         [Test]
         public void BuilderAddsLegacyQueryParamWhenOtherParamsArePresent()
         {
-            FuelSDKConfigurationSection configSection = GetCustomConfigurationSectionFromConfigFile(authEndpointWithMultipleQueryParamsButMissingLegacyParamFileName);
+            var configSection = GetCustomConfigurationSectionFromConfigFile(authEndpointWithMultipleQueryParamsButMissingLegacyParamFileName);
 
             AuthEndpointUriBuilder builder = new AuthEndpointUriBuilder(configSection);
             var uri = builder.Build();
@@ -41,7 +41,7 @@ namespace FuelSDK.Test
         [Test]
         public void BuilderReturnsCorrectAuthEndpointUriWhenLegacyQueryIsPresentAlongwithOtherQueryParams()
         {
-            FuelSDKConfigurationSection configSection = GetCustomConfigurationSectionFromConfigFile(authEndpointWithMultipleQueryParamsIncludingLegacyParamFileName);
+            var configSection = GetCustomConfigurationSectionFromConfigFile(authEndpointWithMultipleQueryParamsIncludingLegacyParamFileName);
 
             AuthEndpointUriBuilder builder = new AuthEndpointUriBuilder(configSection);
             var uri = builder.Build();

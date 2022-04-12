@@ -1,28 +1,26 @@
 ﻿using FuelSDK;
-using System;
-using System.Threading;
 
 namespace objsamples
 {
-    partial class Tester
+    partial class Program
     {
         static void TestET_Import()
         {
-            var myclient = new ET_Client();
+            var myclient = CreateClient();
             var newImportName = "FuelSDKImportExample";
             var SendableDataExtensionObjectID = "62476204-bfd3-de11-95ca-001e0bbae8cc";
             var ListIDForImport = 1768161;
 
             Console.WriteLine("--- Testing Import ---");
             Console.WriteLine("\n Create Import to DataExtension");
-            var postImport = new ET_Import
+            var postImport = new ETImportDefinition
             {
                 AuthStub = myclient,
                 Name = newImportName,
                 CustomerKey = newImportName,
                 Description = "Created with FuelSDK",
                 AllowErrors = true,
-                DestinationObject = new ET_DataExtension { ObjectID = SendableDataExtensionObjectID },
+                DestinationObject = new ETDataExtension { ObjectID = SendableDataExtensionObjectID },
                 FieldMappingType = ImportDefinitionFieldMappingType.InferFromColumnHeadings,
                 FileSpec = "FuelSDKExample.csv",
                 FileType = FileType.CSV,
@@ -37,7 +35,7 @@ namespace objsamples
             Console.WriteLine("Results Length: " + prImport.Results.Length);
 
             Console.WriteLine("\n Delete Import");
-            var deleteImport = new ET_Import
+            var deleteImport = new ETImportDefinition
             {
                 AuthStub = myclient,
                 CustomerKey = newImportName,
@@ -50,14 +48,14 @@ namespace objsamples
 
             Console.WriteLine("--- Testing Import ---");
             Console.WriteLine("\n Create Import to List");
-            var postListImport = new ET_Import
+            var postListImport = new ETImportDefinition
             {
                 AuthStub = myclient,
                 Name = newImportName,
                 CustomerKey = newImportName,
                 Description = "Created with FuelSDK",
                 AllowErrors = true,
-                DestinationObject = new ET_List { ID = ListIDForImport },
+                DestinationObject = new ETList { ID = ListIDForImport },
                 FieldMappingType = ImportDefinitionFieldMappingType.InferFromColumnHeadings,
                 FileSpec = "FuelSDKExample.csv",
                 FileType = FileType.CSV,
@@ -72,7 +70,7 @@ namespace objsamples
             Console.WriteLine("Results Length: " + prListImport.Results.Length);
 
             Console.WriteLine("\n Start Import To List");
-            var startImport = new ET_Import
+            var startImport = new ETImportDefinition
             {
                 AuthStub = myclient,
                 CustomerKey = newImportName,
@@ -85,7 +83,7 @@ namespace objsamples
 
             if (perListImport.Status)
             {
-                Console.WriteLine("\n Check Status using the same instance of ET_Import as used for start");
+                Console.WriteLine("\n Check Status using the same instance of ETImport as used for start");
                 var CurrentImportStatus = string.Empty;
                 while (CurrentImportStatus != "Error" && CurrentImportStatus != "Completed")
                 {
@@ -97,13 +95,13 @@ namespace objsamples
                     Console.WriteLine("Message: " + statusListImport.Message);
                     Console.WriteLine("Code: " + statusListImport.Code.ToString());
                     Console.WriteLine("Results Length: " + statusListImport.Results.Length);
-                    CurrentImportStatus = ((ET_ImportResult)statusListImport.Results[0]).ImportStatus;
+                    CurrentImportStatus = ((ETImportResult)statusListImport.Results[0]).ImportStatus;
                 }
                 Console.WriteLine("Final Status: " + CurrentImportStatus);
             }
 
             Console.WriteLine("\n Delete Import");
-            var deleteListImport = new ET_Import
+            var deleteListImport = new ETImportDefinition
             {
                 AuthStub = myclient,
                 CustomerKey = newImportName,

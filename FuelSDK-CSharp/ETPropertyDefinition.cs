@@ -8,7 +8,4 @@ namespace FuelSDK
     {
         
     }
-
-	[Obsolete("ET_PropertyDefinition will be removed in future release. Please use ETPropertyDefinition instead.")]
-    public class ET_PropertyDefinition : ETPropertyDefinition { }
 }

@@ -1,14 +1,12 @@
 ﻿using FuelSDK;
-using System;
-using System.Threading;
 
 namespace objsamples
 {
-    partial class Tester
+    partial class Program
     {
         static void TestET_EmailSendDefinition()
         {
-            var myclient = new ET_Client();
+            var myclient = CreateClient();
             var newSendDefinitionName = "CSharpSDKSendDefinition";
             var sendableDataExtensionCustomerKey = "F6F3871A-D124-499B-BBF5-3EFC0E827A51";
             var emailIDForSendDefinition = 3113962;
@@ -17,7 +15,7 @@ namespace objsamples
 
             Console.WriteLine("--- Testing EmailSendDefinition ---");
             Console.WriteLine("\n Retrieve All EmailSendDefinition with GetMoreResults");
-            var getAllESD = new ET_EmailSendDefinition
+            var getAllESD = new ETEmailSendDefinition
             {
                 AuthStub = myclient,
                 Props = new[] { "Client.ID", "CreatedDate", "ModifiedDate", "ObjectID", "CustomerKey", "Name", "CategoryID", "Description", "SendClassification.CustomerKey", "SenderProfile.CustomerKey", "SenderProfile.FromName", "SenderProfile.FromAddress", "DeliveryProfile.CustomerKey", "DeliveryProfile.SourceAddressType", "DeliveryProfile.PrivateIP", "DeliveryProfile.DomainType", "DeliveryProfile.PrivateDomain", "DeliveryProfile.HeaderSalutationSource", "DeliveryProfile.FooterSalutationSource", "SuppressTracking", "IsSendLogging", "Email.ID", "BccEmail", "AutoBccEmail", "TestEmailAddr", "EmailSubject", "DynamicEmailSubject", "IsMultipart", "IsWrapped", "SendLimit", "SendWindowOpen", "SendWindowClose", "DeduplicateByEmail", "ExclusionFilter", "Additional" },
@@ -40,15 +38,15 @@ namespace objsamples
             }
 
             Console.WriteLine("\n Create SendDefinition to DataExtension");
-            var postESDDE = new ET_EmailSendDefinition
+            var postESDDE = new ETEmailSendDefinition
             {
                 AuthStub = myclient,
                 Name = newSendDefinitionName,
                 CustomerKey = newSendDefinitionName,
                 Description = "Created with Fuel SDK",
-                SendClassification = new ET_SendClassification { CustomerKey = sendClassificationCustomerKey },
-                SendDefinitionList = new[] { new ET_SendDefinitionList { CustomerKey = sendableDataExtensionCustomerKey, DataSourceTypeID = DataSourceTypeEnum.CustomObject } },
-                Email = new ET_Email { ID = emailIDForSendDefinition },
+                SendClassification = new ETSendClassification { CustomerKey = sendClassificationCustomerKey },
+                SendDefinitionList = new[] { new ETSendDefinitionList { CustomerKey = sendableDataExtensionCustomerKey, DataSourceTypeID = DataSourceTypeEnum.CustomObject } },
+                Email = new ETEmail { ID = emailIDForSendDefinition },
             };
             var postResponse = postESDDE.Post();
             Console.WriteLine("Post Status: " + postResponse.Status.ToString());
@@ -57,7 +55,7 @@ namespace objsamples
             Console.WriteLine("Results Length: " + postResponse.Results.Length);
 
             Console.WriteLine("\n Delete SendDefinition");
-            var deleteESDDE = new ET_EmailSendDefinition
+            var deleteESDDE = new ETEmailSendDefinition
             {
                 CustomerKey = newSendDefinitionName,
                 AuthStub = myclient,
@@ -69,15 +67,15 @@ namespace objsamples
             Console.WriteLine("Results Length: " + deleteESDDEResponse.Results.Length);
 
             Console.WriteLine("\n Create SendDefinition to List");
-            var postESDL = new ET_EmailSendDefinition
+            var postESDL = new ETEmailSendDefinition
             {
                 AuthStub = myclient,
                 Name = newSendDefinitionName,
                 CustomerKey = newSendDefinitionName,
                 Description = "Created with Fuel SDK",
-                SendClassification = new ET_SendClassification { CustomerKey = sendClassificationCustomerKey },
-                SendDefinitionList = new[] { new ET_SendDefinitionList() { List = new ET_List { ID = listIDForSendDefinition }, DataSourceTypeID = DataSourceTypeEnum.List } },
-                Email = new ET_Email { ID = emailIDForSendDefinition },
+                SendClassification = new ETSendClassification { CustomerKey = sendClassificationCustomerKey },
+                SendDefinitionList = new[] { new ETSendDefinitionList() { List = new ETList { ID = listIDForSendDefinition }, DataSourceTypeID = DataSourceTypeEnum.List } },
+                Email = new ETEmail { ID = emailIDForSendDefinition },
             };
             var postESDLResponse = postESDDE.Post();
             Console.WriteLine("Post Status: " + postESDLResponse.Status.ToString());
@@ -86,7 +84,7 @@ namespace objsamples
             Console.WriteLine("Results Length: " + postESDLResponse.Results.Length);
 
             Console.WriteLine("\n Send using Definition ");
-            var sendESD = new ET_EmailSendDefinition
+            var sendESD = new ETEmailSendDefinition
             {
                 AuthStub = myclient,
                 CustomerKey = newSendDefinitionName,
@@ -107,13 +105,13 @@ namespace objsamples
                 Console.WriteLine("Message: " + getESDStatusReturn.Message);
                 Console.WriteLine("Code: " + getESDStatusReturn.Code.ToString());
                 Console.WriteLine("Results Length: " + getESDStatusReturn.Results.Length);
-                emailStatus = ((ET_Send)getESDStatusReturn.Results[0]).Status;
+                emailStatus = ((ETSend)getESDStatusReturn.Results[0]).Status;
                 Console.WriteLine("Send Status: " + emailStatus);
                 Thread.Sleep(5000);
             }
 
             Console.WriteLine("\n Delete SendDefinition");
-            var deleteESDL = new ET_EmailSendDefinition
+            var deleteESDL = new ETEmailSendDefinition
             {
                 CustomerKey = newSendDefinitionName,
                 AuthStub = myclient,

@@ -33,7 +33,7 @@ namespace FuelSDK
         /// </summary>
 		public ETCampaignAsset()
 		{
-            Endpoint = ConfigUtil.GetFuelSDKConfigSection().RestEndPoint + "/hub/v1/campaigns/{CampaignID}/assets/{ID}";
+            Endpoint = AuthStub.Settings.RestEndPoint + "/hub/v1/campaigns/{CampaignID}/assets/{ID}";
 			URLProperties = new[] { "CampaignID", "ID" };
 			RequiredURLProperties = new[] { "CampaignID" };
 		}
@@ -75,10 +75,4 @@ namespace FuelSDK
 		/// <returns>The <see cref="T:FuelSDK.GetReturn"/>.</returns>
 		public GetReturn GetMoreResults() { Page++; var r = new GetReturn(this); Page = r.LastPageNumber; return r; }
     }
-
-    [Obsolete("ET_Campaign will be removed in future release. Please use ETCampaign instead.")]
-	public class ET_CampaignAsset : ETCampaignAsset
-	{
-		
-	}
 }

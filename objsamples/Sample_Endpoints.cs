@@ -1,18 +1,17 @@
 ﻿using FuelSDK;
-using System;
 
 namespace objsamples
 {
-    partial class Tester
+    partial class Program
     {
         static void TestET_Endpoint()
         {
-            var myclient = new ET_Client();
+            var myclient = CreateClient();
 
             Console.WriteLine("--- Testing Endpoint ---");
 
             Console.WriteLine("\n Retrieve All Endpoints");
-            var getEndpoint = new ET_Endpoint
+            var getEndpoint = new ETEndpoint
             {
                 AuthStub = myclient,
             };
@@ -25,7 +24,7 @@ namespace objsamples
             Console.WriteLine("MoreResults: " + grEndpoint.MoreResults.ToString());
 
             Console.WriteLine("\n Retrieve Single Endpoint by Type");
-            var getSingleEndpoint = new ET_Endpoint
+            var getSingleEndpoint = new ETEndpoint
             {
                 AuthStub = myclient,
                 Type = "soap",

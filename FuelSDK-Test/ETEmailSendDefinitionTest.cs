@@ -1,12 +1,9 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace FuelSDK.Test
 {
-    class ETEmailSendDefinitionTest
+    class ETEmailSendDefinitionTest : CommonTestFixture
     {
         ETClient client;
         ETEmailSendDefinition emailSendDef;
@@ -17,7 +14,7 @@ namespace FuelSDK.Test
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
-            client = new ETClient();
+            client = new ETClient(GetSettings());
         }
 
         [SetUp]
@@ -117,13 +114,13 @@ namespace FuelSDK.Test
             var deResponse = de.Delete();
         }
 
-        [Test()]
+        [Test]
         public void EmailSendDefinitionCreate()
         {
             Assert.AreNotEqual(emailSendDef, null);
         }
 
-        [Test()]
+        [Test]
         public void EmailSendDefinitionUpdate()
         {
             var updatedDesc = "Updated with C# Fuel SDK";
@@ -151,7 +148,7 @@ namespace FuelSDK.Test
             Assert.AreEqual(esd.Description, updatedDesc);
         }
 
-        [Test()]
+        [Test]
         public void EmailSendDefinitionGet()
         {
             var getEmailSendDef = new ETEmailSendDefinition
@@ -167,7 +164,7 @@ namespace FuelSDK.Test
             Assert.AreEqual(esd.Description, desc);
         }
 
-        [Test()]
+        [Test]
         public void EmailSendDefinitionDelete()
         {
             var emailSendDef = new ETEmailSendDefinition

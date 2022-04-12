@@ -31,10 +31,4 @@ namespace FuelSDK
 		/// <returns>The <see cref="T:FuelSDK.InfoReturn"/> object..</returns>
 		public InfoReturn Info() { return new InfoReturn(this); }
     }
-
-	[Obsolete("ET_OpenEvent will be removed in future release. Please use ETOpenEvent instead.")]
-	public class ET_OpenEvent : ETOpenEvent
-	{
-		
-	}
 }

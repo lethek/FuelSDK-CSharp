@@ -6,8 +6,8 @@ using System.Text;
 
 namespace FuelSDK.Test
 {
-    [TestFixture()]
-    class ETDataExtensionTest
+    [TestFixture]
+    class ETDataExtensionTest : CommonTestFixture
     {
         ETClient client;
         ETDataExtension dataExtension;
@@ -16,8 +16,7 @@ namespace FuelSDK.Test
         [OneTimeSetUp]
         public void Setup()
         {
-            client = new ETClient();
-
+            client = new ETClient(GetSettings());
         }
 
         [SetUp]
@@ -53,13 +52,13 @@ namespace FuelSDK.Test
             }
         }
 
-        [Test()]
+        [Test]
         public void DataExtensionCreate()
         {
             Assert.AreNotEqual(dataExtension, null);
         }
 
-        [Test()]
+        [Test]
         public void DataExtensionGet()
         {
             var deObj = new ETDataExtension
@@ -77,7 +76,7 @@ namespace FuelSDK.Test
             Assert.AreEqual(getDE.Name, dataExtensionName);
         }
 
-        [Test()]
+        [Test]
         public void DataExtensionUpdate()
         {
             var deObj = new ETDataExtension
@@ -104,7 +103,7 @@ namespace FuelSDK.Test
             Assert.AreEqual(getDE.Name, updatedDataExtensionName);
         }
 
-        [Test()]
+        [Test]
         public void DataExtensionDelete()
         {
             var deObj = new ETDataExtension

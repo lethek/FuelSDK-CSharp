@@ -1,32 +1,34 @@
 ﻿using System;
 
+using FuelSDKCSharp;
+
+
 namespace FuelSDK
 {
     public class AuthEndpointUriBuilder
     {
-        private const string legacyQuery = "legacy=1";
-        private readonly FuelSDKConfigurationSection configSection;
+        public AuthEndpointUriBuilder(FuelSettings settings)
+            => _settings = settings;
 
-        public AuthEndpointUriBuilder(FuelSDKConfigurationSection configSection)
-        {
-            this.configSection = configSection;
-        }
 
         public string Build()
         {
-            UriBuilder uriBuilder = new UriBuilder(configSection.AuthenticationEndPoint);
+            var uriBuilder = new UriBuilder(_settings.AuthEndPoint);
 
-            if (uriBuilder.Query.ToLower().Contains(legacyQuery))
-            {
+            if (uriBuilder.Query.ToLower().Contains(LegacyQuery)) {
                 return uriBuilder.Uri.AbsoluteUri;
             }
 
-            if (uriBuilder.Query.Length > 1)
-                uriBuilder.Query = uriBuilder.Query.Substring(1) + "&" + legacyQuery;
-            else
-                uriBuilder.Query = legacyQuery;
+            uriBuilder.Query = uriBuilder.Query.Length > 1
+                ? uriBuilder.Query.Substring(1) + "&" + LegacyQuery
+                : LegacyQuery;
 
             return uriBuilder.Uri.AbsoluteUri;
         }
+
+
+        private readonly FuelSettings _settings;
+
+        private const string LegacyQuery = "legacy=1";
     }
 }

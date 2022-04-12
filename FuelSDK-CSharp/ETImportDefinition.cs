@@ -66,10 +66,4 @@ namespace FuelSDK
 			return r;
 		}
     }
-
-    [Obsolete("ET_Import will be removed in future release. Please use ETImportDefinition instead.")]
-    public class ET_Import : ETImportDefinition
-	{
-		
-	}
 }

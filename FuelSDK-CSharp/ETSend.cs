@@ -37,10 +37,4 @@ namespace FuelSDK
 		/// <returns>The <see cref="T:FuelSDK.InfoReturn"/> object..</returns>
 		public InfoReturn Info() { return new InfoReturn(this); }
     }
-
-    [Obsolete("ET_Send will be removed in future release. Please use ETSend instead.")]
-	public class ET_Send : ETSend
-	{
-		
-	}
 }

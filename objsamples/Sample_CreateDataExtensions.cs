@@ -1,32 +1,31 @@
 ﻿using FuelSDK;
-using System;
 
 namespace objsamples
 {
-    partial class Tester
+    partial class Program
     {
         static void Test_CreateDataExtensions()
         {
-            var myclient = new ET_Client();
+            var myclient = CreateClient();
 
             Console.WriteLine("--- Testing CreateDataExtensions ---");
 
-            var deOne = new ET_DataExtension
+            var deOne = new ETDataExtension
             {
                 Name = "HelperDEOne",
                 CustomerKey = "HelperDEOne",
                 Columns = new[] {
-                    new ET_DataExtensionColumn { Name = "Name", FieldType = DataExtensionFieldType.Text, IsPrimaryKey = true, MaxLength = 100, IsRequired = true },
-                    new ET_DataExtensionColumn { Name = "OtherField", FieldType = DataExtensionFieldType.Text } },
+                    new ETDataExtensionColumn { Name = "Name", FieldType = DataExtensionFieldType.Text, IsPrimaryKey = true, MaxLength = 100, IsRequired = true },
+                    new ETDataExtensionColumn { Name = "OtherField", FieldType = DataExtensionFieldType.Text } },
             };
 
-            var deTwo = new ET_DataExtension
+            var deTwo = new ETDataExtension
             {
                 Name = "HelperDETwo",
                 CustomerKey = "HelperDETwo",
                 Columns = new[] {
-                    new ET_DataExtensionColumn { Name = "Name", FieldType = DataExtensionFieldType.Text, IsPrimaryKey = true, MaxLength = 100, IsRequired = true }, 
-                    new ET_DataExtensionColumn { Name = "OtherField", FieldType = DataExtensionFieldType.Text } },
+                    new ETDataExtensionColumn { Name = "Name", FieldType = DataExtensionFieldType.Text, IsPrimaryKey = true, MaxLength = 100, IsRequired = true }, 
+                    new ETDataExtensionColumn { Name = "OtherField", FieldType = DataExtensionFieldType.Text } },
             };
 
             var aCoupleDEs = new[] { deOne, deTwo };
@@ -39,7 +38,7 @@ namespace objsamples
             if (createReturn.Status)
             {
                 Console.WriteLine("\n Delete DEOne");
-                var delDataExtension = new ET_DataExtension
+                var delDataExtension = new ETDataExtension
                 {
                     CustomerKey = "HelperDEOne",
                     AuthStub = myclient,
@@ -51,7 +50,7 @@ namespace objsamples
                 Console.WriteLine("Results Length: " + deleteResponse.Results.Length);
 
                 Console.WriteLine("\n Delete DETwo");
-                var delDataExtension2 = new ET_DataExtension
+                var delDataExtension2 = new ETDataExtension
                 {
                     CustomerKey = "HelperDETwo",
                     AuthStub = myclient,

@@ -31,10 +31,4 @@ namespace FuelSDK
 		/// <returns><see cref="T:FuelSDK.InfoReturn"/> object</returns>
 		public InfoReturn Info() { return new InfoReturn(this); }
     }
-
-    [Obsolete("ET_BounceEvent will be removed in future release. Please use ETBounceEvent instead.")]
-	public class ET_BounceEvent : ETBounceEvent
-	{
-		
-	}
 }

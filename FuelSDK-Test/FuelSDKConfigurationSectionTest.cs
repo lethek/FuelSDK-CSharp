@@ -1,82 +1,82 @@
-﻿using NUnit.Framework;
-using System.Configuration;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
+using NUnit.Framework;
+
+using FuelSDKCSharp;
 namespace FuelSDK.Test
 {
-    [TestFixture]
+[TestFixture]
     class FuelSDKConfigurationSectionTest : CustomConfigSectionBasedTest
     {
-        [Test()]
+        [Test]
         public void NoCustomConfigSection()
         {
-            FuelSDKConfigurationSection section = GetCustomConfigurationSectionFromConfigFile(emptyConfigFileName);
+            var section = GetCustomConfigurationSectionFromConfigFile(emptyConfigFileName);
             Assert.IsNull(section);
         }
 
-        [Test()]
+        [Test]
         public void MissingRequiredAppSignaturePropertyFromConfigSection()
         {
-            Assert.That(() => GetCustomConfigurationSectionFromConfigFile(missingRequiredAppSignaturePropertyConfigFileName), Throws.TypeOf<ConfigurationErrorsException>());
+            var settings = GetCustomConfigurationSectionFromConfigFile(missingRequiredAppSignaturePropertyConfigFileName);
+            Assert.That(() => Validator.ValidateObject(settings, new ValidationContext(settings), true), Throws.TypeOf<ValidationException>());
         }
 
-        [Test()]
+        [Test]
         public void MissingRequiredClientIdPropertyFromConfigSection()
         {
-            Assert.That(() => GetCustomConfigurationSectionFromConfigFile(missingRequiredClientIdConfigFileName), Throws.TypeOf<ConfigurationErrorsException>());
+            var settings = GetCustomConfigurationSectionFromConfigFile(missingRequiredClientIdConfigFileName);
+            Assert.That(() => Validator.ValidateObject(settings, new ValidationContext(settings), true), Throws.TypeOf<ValidationException>());
         }
 
-        [Test()]
-        public void MissingRequiredClientSecretPropertyFromConfigSection()
-        {
-            Assert.That(() => GetCustomConfigurationSectionFromConfigFile(missingRequiredClientSecretConfigFileName), Throws.TypeOf<ConfigurationErrorsException>());
-        }
-
-        [Test()]
+        [Test]
         public void MissingSoapEndPointPropertyFromConfigSection()
         {
-            FuelSDKConfigurationSection section = GetCustomConfigurationSectionFromConfigFile(requiredPropertiesOnlyConfigFileName);
-            Assert.AreEqual(string.Empty, section.SoapEndPoint);
+            var section = GetCustomConfigurationSectionFromConfigFile(requiredPropertiesOnlyConfigFileName);
+            Assert.IsNull(section.SoapEndPoint);
         }
 
-        [Test()]
+        [Test]
         public void MissingAuthEndPointPropertyFromConfigSection()
         {
-            FuelSDKConfigurationSection section = GetCustomConfigurationSectionFromConfigFile(requiredPropertiesOnlyConfigFileName);
-            Assert.AreEqual(string.Empty, section.AuthenticationEndPoint);
+            var section = GetCustomConfigurationSectionFromConfigFile(requiredPropertiesOnlyConfigFileName);
+            Assert.IsNull(section.AuthEndPoint);
         }
 
-        [Test()]
+        [Test]
         public void MissingRestEndPointPropertyFromConfigSection()
         {
-            FuelSDKConfigurationSection section = GetCustomConfigurationSectionFromConfigFile(requiredPropertiesOnlyConfigFileName);
-            Assert.AreEqual(string.Empty, section.RestEndPoint);
+            var section = GetCustomConfigurationSectionFromConfigFile(requiredPropertiesOnlyConfigFileName);
+            Assert.IsNull(section.RestEndPoint);
         }
 
-        [Test()]
+        [Test]
         public void AllPropertiesSetInConfigSection()
         {
-            FuelSDKConfigurationSection section = GetCustomConfigurationSectionFromConfigFile(allPropertiesSetConfigFileName);
+            var section = GetCustomConfigurationSectionFromConfigFile(allPropertiesSetConfigFileName);
             Assert.AreEqual(section.AppSignature, "none");
             Assert.AreEqual(section.ClientId, "abc");
             Assert.AreEqual(section.ClientSecret, "cde");
             Assert.AreEqual(section.SoapEndPoint, "https://soapendpoint.com");
-            Assert.AreEqual(section.AuthenticationEndPoint, "https://authendpoint.com");
+            Assert.AreEqual(section.AuthEndPoint, "https://authendpoint.com");
             Assert.AreEqual(section.RestEndPoint, "https://restendpoint.com");
         }
 
         [Test]
         public void AllPropertiesSetButAuthEndpointIsEmpty()
         {
-            FuelSDKConfigurationSection section = GetCustomConfigurationSectionFromConfigFile(allPropertiesSetButAuthEndpointIsEmptyConfigFileName);
+            var section = GetCustomConfigurationSectionFromConfigFile(allPropertiesSetButAuthEndpointIsEmptyConfigFileName);
             var sectionWithDefaultAuthEndpoint = section.WithDefaultAuthEndpoint(DefaultEndpoints.Auth);
 
-            Assert.AreEqual(DefaultEndpoints.Auth, sectionWithDefaultAuthEndpoint.AuthenticationEndPoint);
+            Assert.AreEqual(DefaultEndpoints.Auth, sectionWithDefaultAuthEndpoint.AuthEndPoint);
         }
 
         [Test]
         public void AllPropertiesSetButRestEndpointIsEmpty()
         {
-            FuelSDKConfigurationSection section = GetCustomConfigurationSectionFromConfigFile(allPropertiesSetButRestEndpointIsEmptyConfigFileName);
+            var section = GetCustomConfigurationSectionFromConfigFile(allPropertiesSetButRestEndpointIsEmptyConfigFileName);
             var sectionWithDefaultRestEndpoint = section.WithDefaultRestEndpoint(DefaultEndpoints.Rest);
 
             Assert.AreEqual(DefaultEndpoints.Rest, sectionWithDefaultRestEndpoint.RestEndPoint);
@@ -85,28 +85,13 @@ namespace FuelSDK.Test
         [Test]
         public void WithDefaultsDoesNotOverwriteValuesSetInConfig()
         {
-            FuelSDKConfigurationSection section = GetCustomConfigurationSectionFromConfigFile(allPropertiesSetConfigFileName);
+            var section = GetCustomConfigurationSectionFromConfigFile(allPropertiesSetConfigFileName);
             section = section
                 .WithDefaultRestEndpoint(DefaultEndpoints.Rest)
                 .WithDefaultAuthEndpoint(DefaultEndpoints.Auth);
 
-            Assert.AreEqual(section.AuthenticationEndPoint, "https://authendpoint.com");
+            Assert.AreEqual(section.AuthEndPoint, "https://authendpoint.com");
             Assert.AreEqual(section.RestEndPoint, "https://restendpoint.com");
-        }
-
-        [Test]
-        public void ModifyingAClonedConfigSectionAffectsTheOriginalSectionAndAnyNewInstance()
-        {
-            var section = (FuelSDKConfigurationSection)ConfigurationManager.GetSection("fuelSDK");
-            var clonedSection = (FuelSDKConfigurationSection)section.Clone();
-
-            clonedSection.SoapEndPoint = "https://soapendpoint.com";
-            var newSection = (FuelSDKConfigurationSection)ConfigurationManager.GetSection("fuelSDK");
-
-            Assert.AreEqual(object.ReferenceEquals(section, clonedSection), false);
-            Assert.AreNotSame(section, clonedSection);
-            Assert.AreEqual(section.SoapEndPoint, clonedSection.SoapEndPoint);
-            Assert.AreEqual(section.SoapEndPoint, newSection.SoapEndPoint);
         }
     }
 }

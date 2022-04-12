@@ -7,10 +7,4 @@ namespace FuelSDK
 	public class ETObjectDefinition : ObjectDefinition
     {
     }
-
-    [Obsolete("ET_ObjectDefinition will be removed in future release. Please use ETObjectDefinition instead.")]
-    public class ET_ObjectDefinition : ETObjectDefinition
-    {
-    }
-
 }

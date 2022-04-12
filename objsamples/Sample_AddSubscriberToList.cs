@@ -1,9 +1,8 @@
 ﻿using FuelSDK;
-using System;
 
 namespace objsamples
 {
-    partial class Tester
+    partial class Program
     {
         static void Test_AddSubscriberToList()
         {
@@ -11,10 +10,10 @@ namespace objsamples
             var subscriberTestEmail = "AddSubToListExample@bh.exacttarget.com";
 
             Console.WriteLine("--- Testing AddSubscriberToList ---");
-            var myclient = new ET_Client();
+            var myclient = CreateClient();
 
             Console.WriteLine("\n Create List");
-            var postList = new ET_List
+            var postList = new ETList
             {
                 AuthStub = myclient,
                 ListName = newListName,
@@ -32,7 +31,7 @@ namespace objsamples
                 Console.WriteLine("Code: " + hrAddSub.Code.ToString());
 
                 Console.WriteLine("\n Retrieve all Subscribers on the List");
-                var getListSub = new ET_List_Subscriber
+                var getListSub = new ETListSubscriber
                 {
                     AuthStub = myclient,
                     Props = new[] { "ObjectID", "SubscriberKey", "CreatedDate", "Client.ID", "Client.PartnerClientKey", "ListID", "Status" },
@@ -43,7 +42,7 @@ namespace objsamples
                 Console.WriteLine("Message: " + getResponse.Message);
                 Console.WriteLine("Code: " + getResponse.Code.ToString());
                 Console.WriteLine("Results Length: " + getResponse.Results.Length);
-                foreach (ET_List_Subscriber ResultListSub in getResponse.Results)
+                foreach (ETListSubscriber ResultListSub in getResponse.Results)
                     Console.WriteLine("--ListID: " + ResultListSub.ListID + ", SubscriberKey(EmailAddress): " + ResultListSub.SubscriberKey);
 
                 Console.WriteLine("\n Delete List");

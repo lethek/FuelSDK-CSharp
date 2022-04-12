@@ -8,9 +8,4 @@ namespace FuelSDK
     {
         
     }
-
-    [Obsolete("ET_SubscriberList will be removed in future release. Please use ETSubscriberList instead.")]
-    public class ET_SubscriberList : ETSubscriberList 
-    {
-    }
 }

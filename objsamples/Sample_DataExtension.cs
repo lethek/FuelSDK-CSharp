@@ -1,19 +1,18 @@
 using FuelSDK;
-using System;
 
 namespace objsamples
 {
-    partial class Tester
+    partial class Program
     {
         static void TestET_DataExtension()
         {
-            var myclient = new ET_Client();
+            var myclient = CreateClient();
 
             var nameOfTestDataExtension = "CSharpCreatedDE";
 
             Console.WriteLine("--- Testing DataExtension ---");
             Console.WriteLine("\n Get all of the DataExtensions in an Account");
-            var getAllDataExtension = new ET_DataExtension
+            var getAllDataExtension = new ETDataExtension
             {
                 AuthStub = myclient,
                 Props = new[] { "CustomerKey", "Name" },
@@ -36,14 +35,14 @@ namespace objsamples
             }
 
             Console.WriteLine("\n Create DataExtension");
-            var postDataExtension = new ET_DataExtension
+            var postDataExtension = new ETDataExtension
             {
                 AuthStub = myclient,
                 Name = nameOfTestDataExtension,
                 CustomerKey = nameOfTestDataExtension,
                 Columns = new[] { 
-                    new ET_DataExtensionColumn { Name = "Name", FieldType = DataExtensionFieldType.Text, IsPrimaryKey = true, MaxLength = 100, IsRequired = true },
-                    new ET_DataExtensionColumn { Name = "OtherColumn", FieldType = DataExtensionFieldType.Text } },
+                    new ETDataExtensionColumn { Name = "Name", FieldType = DataExtensionFieldType.Text, IsPrimaryKey = true, MaxLength = 100, IsRequired = true },
+                    new ETDataExtensionColumn { Name = "OtherColumn", FieldType = DataExtensionFieldType.Text } },
             };
             var postResponse = postDataExtension.Post();
             Console.WriteLine("Post Status: " + postResponse.Status.ToString());
@@ -54,12 +53,12 @@ namespace objsamples
             if (postResponse.Status)
             {
                 Console.WriteLine("\n Update DE to add new field");
-                var patchDataExtension = new ET_DataExtension
+                var patchDataExtension = new ETDataExtension
                 {
                     AuthStub = myclient,
                     CustomerKey = nameOfTestDataExtension,
                     Columns = new[] {
-                        new ET_DataExtensionColumn { Name = "AddedField", FieldType = DataExtensionFieldType.Text } },
+                        new ETDataExtensionColumn { Name = "AddedField", FieldType = DataExtensionFieldType.Text } },
                 };
                 var patchFR = patchDataExtension.Patch();
                 Console.WriteLine("Patch Status: " + patchFR.Status.ToString());
@@ -68,7 +67,7 @@ namespace objsamples
                 Console.WriteLine("Results Length: " + patchFR.Results.Length);
 
                 Console.WriteLine("\n Retrieve All Columns for a data extension");
-                var getColumn = new ET_DataExtensionColumn
+                var getColumn = new ETDataExtensionColumn
                 {
                     AuthStub = myclient,
                     Props = new[] { "Name", "FieldType" },
@@ -81,11 +80,11 @@ namespace objsamples
                 Console.WriteLine("Results Length: " + getColumnResponse.Results.Length);
 
                 if (getColumnResponse.Status)
-                    foreach (ET_DataExtensionColumn column in getColumnResponse.Results)
+                    foreach (ETDataExtensionColumn column in getColumnResponse.Results)
                         Console.WriteLine("-- Name: " + column.Name + "  Type: " + column.FieldType.ToString());
 
                 Console.WriteLine("\n Add a row to a data extension (using CustomerKey)");
-                var deRowPost = new ET_DataExtensionRow
+                var deRowPost = new ETDataExtensionRow
                 {
                     AuthStub = myclient,
                     DataExtensionCustomerKey = nameOfTestDataExtension,
@@ -99,7 +98,7 @@ namespace objsamples
                 Console.WriteLine("Results Length: " + prRowResponse.Results.Length);
 
                 Console.WriteLine("\n Add a row to a data extension (using Name)");
-                var deRowPost2 = new ET_DataExtensionRow
+                var deRowPost2 = new ETDataExtensionRow
                 {
                     AuthStub = myclient,
                     DataExtensionName = nameOfTestDataExtension,
@@ -113,7 +112,7 @@ namespace objsamples
                 Console.WriteLine("Results Length: " + prRowResponse2.Results.Length);
 
                 Console.WriteLine("\n Retrieve All Rows from DataExtension");
-                var deRowGet = new ET_DataExtensionRow
+                var deRowGet = new ETDataExtensionRow
                 {
                     AuthStub = myclient,
                     DataExtensionName = nameOfTestDataExtension,
@@ -126,11 +125,11 @@ namespace objsamples
                 Console.WriteLine("Results Length: " + grRow.Results.Length);
 
                 if (getColumnResponse.Status)
-                    foreach (ET_DataExtensionRow column in grRow.Results)
+                    foreach (ETDataExtensionRow column in grRow.Results)
                         Console.WriteLine("--Name: " + column.ColumnValues["Name"] + " - OtherColumn: " + column.ColumnValues["OtherColumn"]);
 
                 Console.WriteLine("\n Update a row in  a data extension");
-                var deRowPatch = new ET_DataExtensionRow
+                var deRowPatch = new ETDataExtensionRow
                 {
                     AuthStub = myclient,
                     DataExtensionCustomerKey = nameOfTestDataExtension,
@@ -144,7 +143,7 @@ namespace objsamples
                 Console.WriteLine("Results Length: " + patchRowResponse.Results.Length);
 
                 Console.WriteLine("\n Retrieve only updated row");
-                var deRowGetSingle = new ET_DataExtensionRow
+                var deRowGetSingle = new ETDataExtensionRow
                 {
                     AuthStub = myclient,
                     DataExtensionName = nameOfTestDataExtension,
@@ -158,11 +157,11 @@ namespace objsamples
                 Console.WriteLine("Results Length: " + grSingleRow.Results.Length);
 
                 if (getColumnResponse.Status)
-                    foreach (ET_DataExtensionRow column in grSingleRow.Results)
+                    foreach (ETDataExtensionRow column in grSingleRow.Results)
                         Console.WriteLine("--Name: " + column.ColumnValues["Name"] + " - OtherColumn: " + column.ColumnValues["OtherColumn"]);
 
                 Console.WriteLine("\n Delete a row from a data extension)");
-                var deRowDelete = new ET_DataExtensionRow
+                var deRowDelete = new ETDataExtensionRow
                 {
                     AuthStub = myclient,
                     DataExtensionCustomerKey = nameOfTestDataExtension,
@@ -175,7 +174,7 @@ namespace objsamples
                 Console.WriteLine("Results Length: " + drRowResponse.Results.Length);
 
                 Console.WriteLine("\n Delete DataExtension");
-                var delDataExtension = new ET_DataExtension
+                var delDataExtension = new ETDataExtension
                 {
                     CustomerKey = nameOfTestDataExtension,
                     AuthStub = myclient,
@@ -187,7 +186,7 @@ namespace objsamples
                 Console.WriteLine("Results Length: " + deleteResponse.Results.Length);
 
                 Console.WriteLine("\n Info DataExtension");
-                var DataExtensionInfo = new ET_DataExtension
+                var DataExtensionInfo = new ETDataExtension
                 {
                     AuthStub = myclient,
                 };
@@ -196,7 +195,7 @@ namespace objsamples
                 Console.WriteLine("Message: " + info.Message);
                 Console.WriteLine("Code: " + info.Code.ToString());
                 Console.WriteLine("Results Length: " + info.Results.Length);
-                foreach (ET_PropertyDefinition def in info.Results)
+                foreach (ETPropertyDefinition def in info.Results)
                     Console.WriteLine("--Name: " + def.Name + ", IsRetrievable: " + def.IsRetrievable.ToString());
             }
         }

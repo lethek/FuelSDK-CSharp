@@ -1,13 +1,9 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 
 namespace FuelSDK.Test
 {
-    class ETDataExtensionRowTest
+    class ETDataExtensionRowTest : CommonTestFixture
     {
         ETClient client;
         ETDataExtension dataExtension;
@@ -15,7 +11,7 @@ namespace FuelSDK.Test
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            client = new ETClient();
+            client = new ETClient(GetSettings());
 
         }
 
@@ -51,7 +47,7 @@ namespace FuelSDK.Test
             }
         }
 
-        [Test()]
+        [Test]
         public void DataExtensionRowCreate()
         {
             for (int i = 0; i < 50; i++)
@@ -72,7 +68,7 @@ namespace FuelSDK.Test
             }
         }
 
-        [Test()]
+        [Test]
         public void DataExtensionRowUpdate()
         {
             var deRow = new ETDataExtensionRow
@@ -115,7 +111,7 @@ namespace FuelSDK.Test
             
         }
 
-        [Test()]
+        [Test]
         public void DataExtensionRowDelete()
         {
             var deRow = new ETDataExtensionRow

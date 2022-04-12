@@ -8,7 +8,4 @@ namespace FuelSDK
     {
         
     }
-
-	[Obsolete("ET_DeliveryProfile will be removed in future release. Please use ETDeliveryProfile instead.")]
-    public class ET_DeliveryProfile : ETDeliveryProfile { }
 }

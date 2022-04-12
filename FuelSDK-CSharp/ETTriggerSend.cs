@@ -10,7 +10,4 @@ namespace FuelSDK
         {
         }
     }
-
-    [Obsolete("ET_Trigger will be removed in future release. Please use ETTriggerSend instead.")]
-    public class ET_Trigger : ETTriggerSend { }
 }

@@ -1,12 +1,9 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace FuelSDK.Test
 {
-    class ETImportDefinitionTest
+    class ETImportDefinitionTest : CommonTestFixture
     {
         ETClient client;
 
@@ -18,7 +15,7 @@ namespace FuelSDK.Test
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
-            client = new ETClient();
+            client = new ETClient(GetSettings());
         }
 
         [SetUp()]
@@ -87,14 +84,14 @@ namespace FuelSDK.Test
             }
         }
 
-        [Test()]
+        [Test]
         public void ImportDefinitionCreate()
         {
             //if the deletedef flag is set to true means we have successfully created the definition.
             Assert.AreEqual(deleteDef, true);
         }
 
-        [Test()]
+        [Test]
         public void ImportDefinitionUpdate()
         {
             var importDefObj = new ETImportDefinition
@@ -110,7 +107,7 @@ namespace FuelSDK.Test
             Assert.AreEqual(updresponse.Results[0].StatusMessage, "ImportDefinition updated");
         }
 
-        [Test()]
+        [Test]
         public void ImportDefinitionGet()
         {
             var importDefObj = new ETImportDefinition
@@ -128,7 +125,7 @@ namespace FuelSDK.Test
             Assert.AreEqual(def.FileSpec, "FuelSDKExample.csv");
         }
 
-        [Test()]
+        [Test]
         public void ImportDefinitionDelete()
         {
             var importDefObj = new ETImportDefinition

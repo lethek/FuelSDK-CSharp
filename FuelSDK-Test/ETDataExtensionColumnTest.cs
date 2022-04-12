@@ -1,15 +1,12 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace FuelSDK.Test
 {
     /// <summary>
     /// Marketing cloud API only supports Data Extension Column get operation.
     /// </summary>
-    class ETDataExtensionColumnTest
+    class ETDataExtensionColumnTest : CommonTestFixture
     {
         ETClient client;
         ETDataExtension dataExtension;
@@ -18,7 +15,7 @@ namespace FuelSDK.Test
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            client = new ETClient();
+            client = new ETClient(GetSettings());
 
         }
 
@@ -53,7 +50,7 @@ namespace FuelSDK.Test
             }
         }
 
-        [Test()]
+        [Test]
         public void DataExtensionColumnGet()
         {
             var getColumn = new ETDataExtensionColumn

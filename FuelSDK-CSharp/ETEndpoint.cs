@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using Newtonsoft.Json.Linq;
 
 namespace FuelSDK
@@ -24,9 +23,9 @@ namespace FuelSDK
         /// </summary>
 		public ETEndpoint()
 		{
-            Endpoint = ConfigUtil.GetFuelSDKConfigSection().RestEndPoint + "/platform/v1/endpoints/{Type}";
+            Endpoint = AuthStub.Settings.RestEndPoint + "/platform/v1/endpoints/{Type}";
 			URLProperties = new[] { "Type" };
-			RequiredURLProperties = new string[0];
+			RequiredURLProperties = Array.Empty<string>();
 		}
         /// <summary>
         /// Initializes a new instance of the <see cref="T:FuelSDK.ETEndpoint"/> class.
@@ -48,11 +47,5 @@ namespace FuelSDK
 		/// </summary>
 		/// <returns>The <see cref="T:FuelSDK.GetReturn"/> object..</returns>
 		public GetReturn GetMoreResults() { Page++; var r = new GetReturn(this); Page = r.LastPageNumber; return r; }
-    }
-
-    [Obsolete("ET_Endpoint will be removed in future release. Please use ETEndpoint instead.")]
-    public class ET_Endpoint : ETEndpoint
-    {
-
     }
 }

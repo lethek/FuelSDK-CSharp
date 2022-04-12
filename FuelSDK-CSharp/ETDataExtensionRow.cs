@@ -155,10 +155,4 @@ namespace FuelSDK
 			}
 		}
     }
-
-    [Obsolete("ET_DataExtensionRow will be removed in future release. Please use ETDataExtensionRow instead.")]
-	public class ET_DataExtensionRow : ETDataExtensionRow
-	{
-
-	}
 }

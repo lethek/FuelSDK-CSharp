@@ -1,12 +1,9 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace FuelSDK.Test
 {
-    class ETTriggeredSendDefinitionTest
+    class ETTriggeredSendDefinitionTest : CommonTestFixture
     {
         ETClient client;
         ETTriggeredSendDefinition tsd;
@@ -17,7 +14,7 @@ namespace FuelSDK.Test
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
-            client = new ETClient();
+            client = new ETClient(GetSettings());
         }
 
         [SetUp]
@@ -77,13 +74,13 @@ namespace FuelSDK.Test
             var emailResponse = email.Delete();
         }
 
-        [Test()]
+        [Test]
         public void TriggeredSendDefinitionCreate()
         {
             Assert.AreNotEqual(tsd, null);
         }
 
-        [Test()]
+        [Test]
         public void TriggeredSendDefinitionGet()
         {
             var tsdObj = new ETTriggeredSendDefinition
@@ -100,7 +97,7 @@ namespace FuelSDK.Test
             Assert.AreEqual(tsd.Description, tsdObj.Description);
         }
 
-        [Test()]
+        [Test]
         public void TriggeredSendDefinitionUpdate()
         {
             var updatedDesc = "Updated TSD";
@@ -131,7 +128,7 @@ namespace FuelSDK.Test
             Assert.AreEqual(updatedDesc, tsdObj.Description);
         }
 
-        [Test()]
+        [Test]
         public void TriggeredSendDefinitionDelete()
         {
             var tsdObj = new ETTriggeredSendDefinition
@@ -146,7 +143,7 @@ namespace FuelSDK.Test
             Assert.AreEqual(response.Results[0].StatusMessage, "TriggeredSendDefinition deleted");
         }
 
-        [Test()]
+        [Test]
         public void TriggeredSendDefinitionSend()
         {
             var tsdObj = new ETTriggeredSendDefinition

@@ -1,18 +1,17 @@
 ﻿using FuelSDK;
-using System;
 
 namespace objsamples
 {
-    partial class Tester
+    partial class Program
     {
         static void TestET_ContentArea()
         {
-            var myclient = new ET_Client();
+            var myclient = CreateClient();
             var nameOfTestContentArea = "CSharpSDKContentArea";
 
             Console.WriteLine("--- Testing ContentArea ---");
             Console.WriteLine("\n Retrieve All ContentArea with GetMoreResults");
-            var getAllContentArea = new ET_ContentArea
+            var getAllContentArea = new ETContentArea
             {
                 AuthStub = myclient,
                 Props = new[] { "RowObjectID", "ObjectID", "ID", "CustomerKey", "Client.ID", "ModifiedDate", "CreatedDate", "CategoryID", "Name", "Layout", "IsDynamicContent", "Content", "IsSurvey", "IsBlank", "Key" },
@@ -35,7 +34,7 @@ namespace objsamples
             }
 
             Console.WriteLine("\n Create ContentArea");
-            var postContentArea = new ET_ContentArea
+            var postContentArea = new ETContentArea
             {
                 AuthStub = myclient,
                 Name = nameOfTestContentArea,
@@ -52,7 +51,7 @@ namespace objsamples
             if (postResponse.Status)
             {
                 Console.WriteLine("\n Retrieve newly create ContentArea");
-                var getContentArea = new ET_ContentArea
+                var getContentArea = new ETContentArea
                 {
                     AuthStub = myclient,
                     Props = new[] { "RowObjectID", "ObjectID", "ID", "CustomerKey", "Client.ID", "ModifiedDate", "CreatedDate", "CategoryID", "Name", "Layout", "IsDynamicContent", "Content", "IsSurvey", "IsBlank", "Key" },
@@ -63,11 +62,11 @@ namespace objsamples
                 Console.WriteLine("Message: " + getResponse.Message);
                 Console.WriteLine("Code: " + getResponse.Code.ToString());
                 Console.WriteLine("Results Length: " + getResponse.Results.Length);
-                foreach (ET_ContentArea ResultContentArea in getResponse.Results)
+                foreach (ETContentArea ResultContentArea in getResponse.Results)
                     Console.WriteLine("--ID: " + ResultContentArea.ID + ", Name: " + ResultContentArea.Name + ", Content: " + ResultContentArea.Content);
 
                 Console.WriteLine("\n Update ContentArea");
-                var patchContentArea = new ET_ContentArea
+                var patchContentArea = new ETContentArea
                 {
                     CustomerKey = nameOfTestContentArea,
                     Content = "<b>Some HTML Content Goes here. NOW WITH NEW CONTENT</b>",
@@ -87,11 +86,11 @@ namespace objsamples
                 Console.WriteLine("Message: " + getResponse.Message);
                 Console.WriteLine("Code: " + getResponse.Code.ToString());
                 Console.WriteLine("Results Length: " + getResponse.Results.Length);
-                foreach (ET_ContentArea ResultContentArea in getResponse.Results)
+                foreach (ETContentArea ResultContentArea in getResponse.Results)
                     Console.WriteLine("--ID: " + ResultContentArea.ID + ", Name: " + ResultContentArea.Name + ", Content: " + ResultContentArea.Content);
 
                 Console.WriteLine("\n Delete ContentArea");
-                var delContentArea = new ET_ContentArea
+                var delContentArea = new ETContentArea
                 {
                     CustomerKey = nameOfTestContentArea,
                     AuthStub = myclient,
@@ -113,7 +112,7 @@ namespace objsamples
 
 #if false
                 Console.WriteLine("\n Info ContentArea");
-                var ContentAreaInfo = new ET_ContentArea
+                var ContentAreaInfo = new ETContentArea
                 {
                     AuthStub = myclient,
                 };
@@ -122,7 +121,7 @@ namespace objsamples
                 Console.WriteLine("Message: " + info.Message);
                 Console.WriteLine("Code: " + info.Code.ToString());
                 Console.WriteLine("Results Length: " + info.Results.Length);
-                foreach (ET_PropertyDefinition def in info.Results)
+                foreach (ETPropertyDefinition def in info.Results)
                     Console.WriteLine("--Name: " + def.Name + ", IsRetrievable: " + def.IsRetrievable.ToString());
 #endif
             }

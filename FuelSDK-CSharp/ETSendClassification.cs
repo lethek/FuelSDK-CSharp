@@ -8,9 +8,4 @@ namespace FuelSDK
     {
         
     }
-
-    [Obsolete("ET_SendClassification will be removed in future release. Please use ETSendClassification instead.")]
-    public class ET_SendClassification : ETSendClassification 
-    {
-    }
 }

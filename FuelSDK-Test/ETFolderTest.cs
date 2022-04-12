@@ -1,12 +1,9 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace FuelSDK.Test
 {
-    class ETFolderTest
+    class ETFolderTest : CommonTestFixture
     {
         ETClient client;
         int folderId;
@@ -18,7 +15,7 @@ namespace FuelSDK.Test
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
-            client = new ETClient();
+            client = new ETClient(GetSettings());
         }
 
         [SetUp]
@@ -71,13 +68,13 @@ namespace FuelSDK.Test
                 var response = fold.Delete();
         }
 
-        [Test()]
+        [Test]
         public void FolderCreate()
         {
             Assert.AreNotEqual(folderId, null);
         }
 
-        [Test()]
+        [Test]
         public void FolderUpdate()
         {
             var fold = new ETFolder
@@ -111,7 +108,7 @@ namespace FuelSDK.Test
 
         }
 
-        [Test()]
+        [Test]
         public void FolderGet()
         {
             var getFolder = new ETFolder
@@ -132,7 +129,7 @@ namespace FuelSDK.Test
             Assert.AreEqual(folder.Description, folderDesc);
         }
 
-        [Test()]
+        [Test]
         public void FolderDelete()
         {
             var fold = new ETFolder

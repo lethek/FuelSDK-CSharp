@@ -74,10 +74,4 @@ namespace FuelSDK
 			return r;
 		}
     }
-
-    [Obsolete("ET_EmailSendDefinition will be removed in future release. Please use ETEmailSendDefinition instead.")]
-	public class ET_EmailSendDefinition : ETEmailSendDefinition
-	{
-		
-	}
 }

@@ -38,9 +38,9 @@ namespace FuelSDK
         /// </summary>
 		public ETCampaign()
 		{
-            Endpoint = ConfigUtil.GetFuelSDKConfigSection().RestEndPoint + "/hub/v1/campaigns/{ID}";
+            Endpoint = AuthStub.Settings.RestEndPoint + "/hub/v1/campaigns/{ID}";
 			URLProperties = new[] { "ID" };
-			RequiredURLProperties = new string[0];
+			RequiredURLProperties = Array.Empty<string>();
 		}
         /// <summary>
         /// Initializes a new instance of the <see cref="T:FuelSDK.ETCampaign"/> class.
@@ -86,11 +86,4 @@ namespace FuelSDK
 		/// <returns>The <see cref="T:FuelSDK.GetReturn"/>.</returns>
 		public GetReturn GetMoreResults() { Page++; var r = new GetReturn(this); Page = r.LastPageNumber; return r; }
     }
-
-    [Obsolete("ET_Campaign will be removed in future release. Please use ETCampaign instead.")]
-	public class ET_Campaign : ETCampaign
-	{
-        public ET_Campaign() : base() {}
-        public ET_Campaign(JObject obj) : base(obj) { }
-	}
 }

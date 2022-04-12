@@ -1,12 +1,9 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace FuelSDK.Test
 {
-    class ETQueryDefinitionTest
+    class ETQueryDefinitionTest : CommonTestFixture
     {
         ETClient client;
         ETQueryDefinition queryDef;
@@ -20,7 +17,7 @@ namespace FuelSDK.Test
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
-            client = new ETClient();
+            client = new ETClient(GetSettings());
         }
 
         [SetUp]
@@ -108,13 +105,13 @@ namespace FuelSDK.Test
 
         }
 
-        [Test()]
+        [Test]
         public void QueryDefinitionCreate()
         {
             Assert.AreNotEqual(queryDef, null);
         }
 
-        [Test()]
+        [Test]
         public void QueryDefinitionGet()
         {
             var qDef = new ETQueryDefinition
@@ -135,7 +132,7 @@ namespace FuelSDK.Test
 
         }
 
-        [Test()]
+        [Test]
         public void QueryDefinitionUpdate()
         {
 
@@ -174,7 +171,7 @@ namespace FuelSDK.Test
 
         }
 
-        [Test()]
+        [Test]
         public void QueryDefinitionDelete()
         {
             var qDef = new ETQueryDefinition

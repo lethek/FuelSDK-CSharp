@@ -10,8 +10,8 @@
 
 namespace FuelSDK
 {
-    
-    
+    #pragma warning disable CS0472 // The result of the expression is always the same since a value of this type is never equal to 'null'
+
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(Namespace="http://exacttarget.com/wsdl/partnerAPI", ConfigurationName="FuelSDK.Soap")]
     public interface Soap
@@ -30138,4 +30138,6 @@ namespace FuelSDK
             return retVal.Results;
         }
     }
+
+    #pragma warning restore CS0472 // The result of the expression is always the same since a value of this type is never equal to 'null'
 }

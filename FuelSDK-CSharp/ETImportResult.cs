@@ -8,7 +8,4 @@ namespace FuelSDK
     {
         
     }
-
-	[Obsolete("ET_ImportResult will be removed in future release. Please use ETImportResult instead.")]
-    public class ET_ImportResult : ETImportResult { }
 }

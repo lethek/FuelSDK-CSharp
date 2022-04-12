@@ -1,9 +1,11 @@
 ﻿using NUnit.Framework;
 using System;
+
+
 namespace FuelSDK.Test
 {
-    [TestFixture()]
-    public class ETContentAreaTest
+    [TestFixture]
+    public class ETContentAreaTest : CommonTestFixture
     {
 		ETClient client;
         ETContentArea contentArea;
@@ -14,7 +16,7 @@ namespace FuelSDK.Test
 		[OneTimeSetUp]
 		public void Setup()
 		{
-			client = new ETClient();
+			client = new ETClient(GetSettings());
 
 		}
 
@@ -48,13 +50,13 @@ namespace FuelSDK.Test
 			}
 		}
 
-        [Test()]
+        [Test]
         public void CreateContentArea()
         {
             Assert.AreNotEqual(contentArea,null);
         }
 
-        [Test()]
+        [Test]
         public void GetContentArea()
         {
 			var getContentArea = new ETContentArea
@@ -69,7 +71,7 @@ namespace FuelSDK.Test
             Assert.AreEqual(getContentArea.Content,content);
         }
 
-        [Test()]
+        [Test]
         public void UpdateContentArea()
         {
             var updateContentArea = new ETContentArea
@@ -94,7 +96,7 @@ namespace FuelSDK.Test
 
         }
 
-        [Test()]
+        [Test]
         public void DeleteContentArea()
         {
             var deleteContentArea = new ETContentArea

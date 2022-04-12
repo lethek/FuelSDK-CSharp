@@ -1,12 +1,11 @@
 ﻿using NUnit.Framework;
 using System;
-using FuelSDK;
 using Newtonsoft.Json.Linq;
 
 namespace FuelSDK.Test
 {
-    [TestFixture()]
-    public class ETCampaignTest
+    [TestFixture]
+    public class ETCampaignTest : CommonTestFixture
     {
 
         ETClient client;
@@ -18,7 +17,7 @@ namespace FuelSDK.Test
         [OneTimeSetUp]
         public void Setup()
         {
-            client = new ETClient();
+            client = new ETClient(GetSettings());
         }
 
         [SetUp]
@@ -50,13 +49,13 @@ namespace FuelSDK.Test
             }
         }
 
-        [Test()]
+        [Test]
         public void CreateCampaign()
         {
             Assert.AreNotEqual(campaign, null);
         }
 
-        [Test()]
+        [Test]
         public void GetCampaign()
         {
             var campObj = new ETCampaign();
@@ -68,7 +67,7 @@ namespace FuelSDK.Test
             Assert.AreEqual(getCampObj.Description, campaignDesc);
         }
 
-        [Test()]
+        [Test]
         public void DeleteCampaign()
         {
 			var campObj = new ETCampaign();

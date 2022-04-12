@@ -8,7 +8,4 @@ namespace FuelSDK
     {
         
     }
-
-	[Obsolete("ET_SendDefinitionList will be removed in future release. Please use ETSendDefinitionList instead.")]
-    public class ET_SendDefinitionList : ETSendDefinitionList { }
 }

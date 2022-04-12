@@ -1,26 +1,30 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Configuration;
 using System.Reflection;
+
+using FuelSDKCSharp;
+
+using Microsoft.Extensions.Configuration;
+
 
 namespace FuelSDK.Test
 {
-    [TestFixture()]
-    class ETClientTest
+    [TestFixture]
+    class ETClientTest : CommonTestFixture
     {
-        [Test()]
+        [Test]
         public void TestSoapEndpointCaching()
         {
-            var configSection = (FuelSDKConfigurationSection)ConfigurationManager.GetSection("fuelSDK");
-            if (!string.IsNullOrEmpty(configSection.UseOAuth2Authentication) && Convert.ToBoolean(configSection.UseOAuth2Authentication) == true)
-            {
+            var settings = GetSettings();
+
+            if (settings.UseOAuth2Authentication) {
                 // Test does not apply for legacy authentication
                 Assert.Pass();
                 return;
             }
 
-            var client1 = new ETClient();
-            var client2 = new ETClient();
+            var client1 = new ETClient(settings);
+            var client2 = new ETClient(settings);
 
             var client1SoapEndpointExpirationField = client1.GetType().GetField("soapEndPointExpiration", BindingFlags.NonPublic | BindingFlags.Static);
             var client2SoapEndpointExpirationField = client2.GetType().GetField("soapEndPointExpiration", BindingFlags.NonPublic | BindingFlags.Static);

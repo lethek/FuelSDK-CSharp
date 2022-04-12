@@ -1,10 +1,11 @@
 ﻿using NUnit.Framework;
 using System;
+
 namespace FuelSDK.Test
 {
-    [TestFixture()]
-    public class ETCampaignAssetTest
-    {
+    [TestFixture]
+    public class ETCampaignAssetTest : CommonTestFixture
+	{
 		ETClient client;
         ETCampaignAsset asset;
         ETCampaign campaign;
@@ -12,7 +13,7 @@ namespace FuelSDK.Test
 		[OneTimeSetUp]
 		public void Setup()
 		{
-			client = new ETClient();
+			client = new ETClient(GetSettings());
 
 			var campObj = new ETCampaign
 			{
@@ -44,7 +45,7 @@ namespace FuelSDK.Test
             asset = (ETCampaignAsset)result.Results[0].Object;
 		}
 
-		[Test()]
+		[Test]
 		public void CreateCampaignAsset()
 		{
 			Assert.AreNotEqual(asset, null);

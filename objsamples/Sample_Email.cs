@@ -1,18 +1,17 @@
 ﻿using FuelSDK;
-using System;
 
 namespace objsamples
 {
-    partial class Tester
+    partial class Program
     {
         static void TestET_Email()
         {
-            var myclient = new ET_Client();
+            var myclient = CreateClient();
             var nameOfTestEmail = "CSharpSDKEmail";
 
             Console.WriteLine("--- Testing Email ---");
             Console.WriteLine("\n Retrieve All Email with GetMoreResults");
-            var getAllEmail = new ET_Email
+            var getAllEmail = new ETEmail
             {
                 AuthStub = myclient,
                 Props = new[] { "ID", "PartnerKey", "CreatedDate", "ModifiedDate", "Client.ID", "Name", "Folder", "CategoryID", "TextBody", "Subject", "IsActive", "IsHTMLPaste", "ClonedFromID", "Status", "EmailType", "CharacterSet", "HasDynamicSubjectLine", "ContentCheckStatus", "Client.PartnerClientKey", "ContentAreas", "CustomerKey" },
@@ -35,7 +34,7 @@ namespace objsamples
             }
 
             Console.WriteLine("\n Create Email");
-            var postEmail = new ET_Email
+            var postEmail = new ETEmail
             {
                 AuthStub = myclient,
                 Name = nameOfTestEmail,
@@ -53,7 +52,7 @@ namespace objsamples
             if (postResponse.Status)
             {
                 Console.WriteLine("\n Retrieve newly create Email");
-                var getEmail = new ET_Email
+                var getEmail = new ETEmail
                 {
                     AuthStub = myclient,
                     Props = new[] { "ID", "PartnerKey", "CreatedDate", "ModifiedDate", "Client.ID", "Name", "Folder", "CategoryID", "HTMLBody", "TextBody", "Subject", "IsActive", "IsHTMLPaste", "ClonedFromID", "Status", "EmailType", "CharacterSet", "HasDynamicSubjectLine", "ContentCheckStatus", "Client.PartnerClientKey", "ContentAreas", "CustomerKey" },
@@ -64,11 +63,11 @@ namespace objsamples
                 Console.WriteLine("Message: " + getResponse.Message);
                 Console.WriteLine("Code: " + getResponse.Code.ToString());
                 Console.WriteLine("Results Length: " + getResponse.Results.Length);
-                foreach (ET_Email ResultEmail in getResponse.Results)
+                foreach (ETEmail ResultEmail in getResponse.Results)
                     Console.WriteLine("--ID: " + ResultEmail.ID + ", Name: " + ResultEmail.Name + ", HTMLBody: " + ResultEmail.HTMLBody);
 
                 Console.WriteLine("\n Update Email");
-                var patchEmail = new ET_Email
+                var patchEmail = new ETEmail
                 {
                     CustomerKey = nameOfTestEmail,
                     HTMLBody = "<b>Some HTML Goes here. NOW WITH NEW CONTENT</b>",
@@ -88,11 +87,11 @@ namespace objsamples
                 Console.WriteLine("Message: " + getResponse.Message);
                 Console.WriteLine("Code: " + getResponse.Code.ToString());
                 Console.WriteLine("Results Length: " + getResponse.Results.Length);
-                foreach (ET_Email ResultEmail in getResponse.Results)
+                foreach (ETEmail ResultEmail in getResponse.Results)
                     Console.WriteLine("--ID: " + ResultEmail.ID + ", Name: " + ResultEmail.Name + ", HTMLBody: " + ResultEmail.HTMLBody);
 
                 Console.WriteLine("\n Delete Email");
-                var delEmail = new ET_Email
+                var delEmail = new ETEmail
                 {
                     CustomerKey = nameOfTestEmail,
                     AuthStub = myclient,
@@ -113,7 +112,7 @@ namespace objsamples
                 Console.WriteLine("Results Length: " + getResponse.Results.Length);
 
                 Console.WriteLine("\n Info Email");
-                var EmailInfo = new ET_Email
+                var EmailInfo = new ETEmail
                 {
                     AuthStub = myclient,
                 };
@@ -122,7 +121,7 @@ namespace objsamples
                 Console.WriteLine("Message: " + info.Message);
                 Console.WriteLine("Code: " + info.Code.ToString());
                 Console.WriteLine("Results Length: " + info.Results.Length);
-                foreach (ET_PropertyDefinition def in info.Results)
+                foreach (ETPropertyDefinition def in info.Results)
                     Console.WriteLine("--Name: " + def.Name + ", IsRetrievable: " + def.IsRetrievable.ToString());
             }
         }

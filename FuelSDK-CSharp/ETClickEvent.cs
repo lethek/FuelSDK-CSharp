@@ -47,10 +47,4 @@ namespace FuelSDK
             return new InfoReturn(this);
         }
     }
-
-    [Obsolete("ET_ClickEvent will be removed in future release. Please use ETClickEvent instead.")]
-    public class ET_ClickEvent : ETClickEvent
-    {
-
-    }
 }

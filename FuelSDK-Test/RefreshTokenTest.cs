@@ -1,112 +1,110 @@
 ﻿using NUnit.Framework;
-using System;
-using FuelSDK;
-using Newtonsoft.Json.Linq;
-using System.Reflection;
-using System.Collections.Specialized;
+
+using FuelSDKCSharp;
+
 
 namespace FuelSDK.Test
 {
     /// <summary>
     /// These tests are specific for OAuth2 Public/Web Apps, So Config should be modified accordingly.
     /// </summary>
-    [TestFixture()]
-    public class RefreshTokenTest
+    [TestFixture]
+    public class RefreshTokenTest : CommonTestFixture
     {
-        ETClient client;
-        FuelSDKConfigurationSection config;
- 
         [OneTimeSetUp]
         public void Setup()
         {
-            client = new ETClient();
-            config = new FuelSDKConfigurationSection();
-            config.AuthorizationCode = "Auth_Code_For_OAuth2_WebApp";
-            config.RedirectURI = "www.google.com";
-            config.ClientId = "OAUTH2_CLIENTID";
-            config.ClientSecret = "OAUTH2_CLIENT_SECRET";
-            
+            _client = new ETClient(GetSettings());
+            _settings = new FuelSettings {
+                AuthorizationCode = "Auth_Code_For_OAuth2_WebApp",
+                RedirectURI = "www.google.com",
+                ClientId = "OAUTH2_CLIENTID",
+                ClientSecret = "OAUTH2_CLIENT_SECRET"
+            };
         }
 
-        [Test()]
+        [Test]
         public void AuthTokenAndRefreshTokenShouldDifferIfRefreshTokenIsEnforced()
         {
-            var token = client.AuthToken;
-            var refreshToken = client.RefreshKey;
-            client.RefreshTokenWithOauth2(true);
-            var token1 = client.AuthToken;
-            var refreshToken1 = client.RefreshKey;
+            var token = _client.AuthToken;
+            var refreshToken = _client.RefreshKey;
+            _client.RefreshTokenWithOauth2(true);
+            var token1 = _client.AuthToken;
+            var refreshToken1 = _client.RefreshKey;
 
 
             Assert.AreNotEqual(token, token1);
             Assert.AreNotEqual(refreshToken, refreshToken1);
         }
 
-        [Test()]
+        [Test]
         public void AuthPayloadShouldHavePublicAppAttributes()
         {
-            config.ApplicationType = "public";
-            dynamic payload = client.CreatePayload(config);
+            var settings = _settings with { ApplicationType = "public" };
+            dynamic payload = _client.CreatePayload(settings);
 
-            Assert.AreEqual(payload.client_id.ToString(), config.ClientId);
-            Assert.AreEqual(payload.redirect_uri.ToString(), config.RedirectURI);
-            Assert.AreEqual(payload.code.ToString(), config.AuthorizationCode);
+            Assert.AreEqual(payload.client_id.ToString(), settings.ClientId);
+            Assert.AreEqual(payload.redirect_uri.ToString(), settings.RedirectURI);
+            Assert.AreEqual(payload.code.ToString(), settings.AuthorizationCode);
             Assert.AreEqual(payload.grant_type.ToString(), "authorization_code");
         }
 
-        [Test()]
+        [Test]
         public void AuthPayloadForPublicApp_ShouldNotHaveClientSecret()
         {
-            config.ApplicationType = "public";
-            dynamic payload = client.CreatePayload(config);
+            var settings = _settings with { ApplicationType = "public" };
+            dynamic payload = _client.CreatePayload(settings);
 
             Assert.AreEqual(payload.client_secret, null);
         }
 
-        [Test()]
+        [Test]
         public void AuthPayloadShouldHaveWebAppAttributes()
         {
-            config.ApplicationType = "web";
-            dynamic payload = client.CreatePayload(config);
+            var settings = _settings with { ApplicationType = "web" };
+            dynamic payload = _client.CreatePayload(settings);
 
             Assert.AreEqual(payload.grant_type.ToString(), "authorization_code");
-            Assert.AreEqual(payload.client_id.ToString(), config.ClientId);
-            Assert.AreEqual(payload.client_secret.ToString(), config.ClientSecret);
-            Assert.AreEqual(payload.redirect_uri.ToString(), config.RedirectURI);
-            Assert.AreEqual(payload.code.ToString(), config.AuthorizationCode);
+            Assert.AreEqual(payload.client_id.ToString(), settings.ClientId);
+            Assert.AreEqual(payload.client_secret.ToString(), settings.ClientSecret);
+            Assert.AreEqual(payload.redirect_uri.ToString(), settings.RedirectURI);
+            Assert.AreEqual(payload.code.ToString(), settings.AuthorizationCode);
         }
 
-        [Test()]
+        [Test]
         public void AuthPayloadShouldHaveServerAppAttributes()
         {
-            config.ApplicationType = "server";
-            dynamic payload = client.CreatePayload(config);
+            var settings = _settings with { ApplicationType = "server" };
+            dynamic payload = _client.CreatePayload(settings);
 
             Assert.AreEqual(payload.grant_type.ToString(), "client_credentials");
-            Assert.AreEqual(payload.client_id.ToString(), config.ClientId);
-            Assert.AreEqual(payload.client_secret.ToString(), config.ClientSecret);
+            Assert.AreEqual(payload.client_id.ToString(), settings.ClientId);
+            Assert.AreEqual(payload.client_secret.ToString(), settings.ClientSecret);
         }
 
-        [Test()]
+        [Test]
         public void AuthPayloadForServerApp_ShouldNotHaveCodeAndRedirectURI()
         {
-            config.ApplicationType = "server";
-            dynamic payload = client.CreatePayload(config);
+            var settings = _settings with { ApplicationType = "server" };
+            dynamic payload = _client.CreatePayload(settings);
 
             Assert.AreEqual(payload.code, null);
             Assert.AreEqual(payload.redirect_uri, null);
         }
 
-        [Test()]
+        [Test]
         public void AuthPayloadWithRefreshToken_ShouldHaveRefreshTokenAttribute()
         {
-            client.RefreshKey = "REFRESH_KEY";
+            _client.RefreshKey = "REFRESH_KEY";
 
-            config.ApplicationType = "public";
-            dynamic payload = client.CreatePayload(config);
+            var settings = _settings with { ApplicationType = "public" };
+            dynamic payload = _client.CreatePayload(settings);
 
             Assert.AreEqual(payload.grant_type.ToString(), "refresh_token");
-            Assert.AreEqual(payload.refresh_token.ToString(), client.RefreshKey);
+            Assert.AreEqual(payload.refresh_token.ToString(), _client.RefreshKey);
         }
+
+        private FuelSettings _settings;
+        private ETClient _client;
     }
 }

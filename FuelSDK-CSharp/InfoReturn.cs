@@ -34,7 +34,7 @@ namespace FuelSDK
                 {
                     if (objs.GetType().ToString().Contains("ET_"))
                     {
-                        Results = response[0].Properties.Select(x => (ET_PropertyDefinition)(TranslateObject2(x))).ToArray();
+                        Results = response[0].Properties.Select(x => (ETPropertyDefinition)(TranslateObject2(x))).ToArray();
                     }
                     else
                     {

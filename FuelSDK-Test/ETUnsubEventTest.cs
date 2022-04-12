@@ -1,22 +1,19 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace FuelSDK.Test
 {
-    class ETUnsubEventTest
+    class ETUnsubEventTest : CommonTestFixture
     {
         ETClient client;
 
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
-            client = new ETClient();
+            client = new ETClient(GetSettings());
         }
 
-        [Test()]
+        [Test]
         public void UnsubEventGet()
         {
             var filterDate = DateTime.Now.AddDays(-30);

@@ -1,9 +1,8 @@
 ﻿using FuelSDK;
-using System;
 
 namespace objsamples
 {
-    partial class Tester
+    partial class Program
     {
         static void TestET_Folder()
         {
@@ -11,12 +10,12 @@ namespace objsamples
             var parentIDForEmail = 0;
             var contentType = "email";
 
-            var myclient = new ET_Client();
+            var myclient = CreateClient();
 
             Console.WriteLine("--- Testing Folder ---");
 
             Console.WriteLine("\n Retrieve All Folder with GetMoreResults");
-            var getAllFolder = new ET_Folder
+            var getAllFolder = new ETFolder
             {
                 AuthStub = myclient,
                 Props = new[] { "ID", "Client.ID", "ParentFolder.ID", "ParentFolder.CustomerKey", "ParentFolder.ObjectID", "ParentFolder.Name", "ParentFolder.Description", "ParentFolder.ContentType", "ParentFolder.IsActive", "ParentFolder.IsEditable", "ParentFolder.AllowChildren", "Name", "Description", "ContentType", "IsActive", "IsEditable", "AllowChildren", "CreatedDate", "ModifiedDate", "Client.ModifiedBy", "ObjectID", "CustomerKey", "Client.EnterpriseID", "Client.CreatedBy" },
@@ -39,7 +38,7 @@ namespace objsamples
             }
 
             Console.WriteLine("\n Retrieve Specific Folder for Email Folder ParentID");
-            var getFolder = new ET_Folder
+            var getFolder = new ETFolder
             {
                 AuthStub = myclient,
                 SearchFilter = new ComplexFilterPart
@@ -57,19 +56,19 @@ namespace objsamples
             Console.WriteLine("Code: " + grFolder.Code.ToString());
             Console.WriteLine("Results Length: " + grFolder.Results.Length);
 
-            foreach (ET_Folder ef in grFolder.Results)
+            foreach (ETFolder ef in grFolder.Results)
                 parentIDForEmail = ef.ID;
 
             if (parentIDForEmail != 0)
             {
                 Console.WriteLine("\n Create Folder");
-                var fold = new ET_Folder
+                var fold = new ETFolder
                 {
                     Name = newFolderName,
                     Description = newFolderName,
                     CustomerKey = newFolderName,
                     AuthStub = myclient,
-                    ParentFolder = new ET_Folder { ID = parentIDForEmail },
+                    ParentFolder = new ETFolder { ID = parentIDForEmail },
                     ContentType = contentType,
                     IsEditable = true,
                 };
@@ -86,7 +85,7 @@ namespace objsamples
                 }
 
                 Console.WriteLine("\n Retrieve newly created Folder");
-                var getNewFolder = new ET_Folder
+                var getNewFolder = new ETFolder
                 {
                     AuthStub = myclient,
                     SearchFilter = new SimpleFilterPart { Property = "CustomerKey", SimpleOperator = SimpleOperators.equals, Value = new[] { newFolderName } },
@@ -98,11 +97,11 @@ namespace objsamples
                 Console.WriteLine("Message: " + grFolder.Message);
                 Console.WriteLine("Code: " + grNewFolder.Code.ToString());
                 Console.WriteLine("Results Length: " + grNewFolder.Results.Length);
-                foreach (ET_Folder ef in grNewFolder.Results)
+                foreach (ETFolder ef in grNewFolder.Results)
                     Console.WriteLine("--Name: " + ef.Name + " - Description:" + ef.Description);
 
                 Console.WriteLine("\n UpdateFolder");
-                var patchFolder = new ET_Folder
+                var patchFolder = new ETFolder
                 {
                     AuthStub = myclient,
                     CustomerKey = newFolderName,
@@ -123,12 +122,12 @@ namespace objsamples
                     Console.WriteLine("Message: " + grFolder.Message);
                     Console.WriteLine("Code: " + grNewFolder.Code.ToString());
                     Console.WriteLine("Results Length: " + grNewFolder.Results.Length);
-                    foreach (ET_Folder ef in grNewFolder.Results)
+                    foreach (ETFolder ef in grNewFolder.Results)
                         Console.WriteLine("--Name: " + ef.Name + " - Description:" + ef.Description);
                 }
 
                 Console.WriteLine("\n Delete Folder");
-                var delFolder = new ET_Folder
+                var delFolder = new ETFolder
                 {
                     AuthStub = myclient,
                     CustomerKey = newFolderName,
@@ -151,7 +150,7 @@ namespace objsamples
                 Console.WriteLine("Message: " + grFolder.Message);
                 Console.WriteLine("Code: " + grNewFolder.Code.ToString());
                 Console.WriteLine("Results Length: " + grNewFolder.Results.Length);
-                foreach (ET_Folder ef in grNewFolder.Results)
+                foreach (ETFolder ef in grNewFolder.Results)
                     Console.WriteLine("--Name: " + ef.Name + " - Description:" + ef.Description);
             }
         }

@@ -1,19 +1,18 @@
 ﻿using FuelSDK;
-using System;
 
 namespace objsamples
 {
-    partial class Tester
+    partial class Program
     {
         static void TestET_List()
         {
-            var myclient = new ET_Client();
+            var myclient = CreateClient();
 
             Console.WriteLine("--- Testing List ---");
             var myNewListID = 0;
 
             Console.WriteLine("\n Create List");
-            var list = new ET_List
+            var list = new ETList
             {
                 AuthStub = myclient,
                 ListName = "C# SDK Rules!!",
@@ -39,11 +38,11 @@ namespace objsamples
                 Console.WriteLine("Message: " + getFR.Message);
                 Console.WriteLine("Code: " + getFR.Code.ToString());
                 Console.WriteLine("Results Length: " + getFR.Results.Length);
-                foreach (ET_List ResultList in getFR.Results)
+                foreach (ETList ResultList in getFR.Results)
                     Console.WriteLine("--ID: " + ResultList.ID + ", Name: " + ResultList.ListName + ", Description: " + ResultList.Description);
 
                 Console.WriteLine("\n Update list");
-                var patchList = new ET_List
+                var patchList = new ETList
                 {
                     ID = myNewListID,
                     Description = "This is the new description",
@@ -63,11 +62,11 @@ namespace objsamples
                 Console.WriteLine("Message: " + getFR.Message);
                 Console.WriteLine("Code: " + getFR.Code.ToString());
                 Console.WriteLine("Results Length: " + getFR.Results.Length);
-                foreach (ET_List ResultList in getFR.Results)
+                foreach (ETList ResultList in getFR.Results)
                     Console.WriteLine("--ID: " + ResultList.ID + ", Name: " + ResultList.ListName + ", Description: " + ResultList.Description);
 
                 Console.WriteLine("\n Delete List");
-                var delList = new ET_List
+                var delList = new ETList
                 {
                     ID = myNewListID,
                     AuthStub = myclient,
@@ -86,11 +85,11 @@ namespace objsamples
                 Console.WriteLine("Message: " + getFR.Message);
                 Console.WriteLine("Code: " + getFR.Code.ToString());
                 Console.WriteLine("Results Length: " + getFR.Results.Length);
-                foreach (ET_List ResultList in getFR.Results)
+                foreach (ETList ResultList in getFR.Results)
                     Console.WriteLine("--ID: " + ResultList.ID + ", Name: " + ResultList.ListName + ", Description: " + ResultList.Description);
 
                 Console.WriteLine("\n Info List");
-                var listInfo = new ET_List
+                var listInfo = new ETList
                 {
                     AuthStub = myclient
                 };
@@ -99,7 +98,7 @@ namespace objsamples
                 Console.WriteLine("Message: " + info.Message);
                 Console.WriteLine("Code: " + info.Code.ToString());
                 Console.WriteLine("Results Length: " + info.Results.Length);
-                foreach (ET_PropertyDefinition def in info.Results)
+                foreach (ETPropertyDefinition def in info.Results)
                     Console.WriteLine("--Name: " + def.Name + ", IsRetrievable: " + def.IsRetrievable.ToString());
             }
         }

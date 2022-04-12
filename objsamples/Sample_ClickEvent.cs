@@ -1,19 +1,18 @@
 ﻿using FuelSDK;
-using System;
 
 namespace objsamples
 {
-    partial class Tester
+    partial class Program
     {
         static void TestET_ClickEvent()
         {
             var filterDate = new DateTime(2013, 1, 15, 13, 0, 0);
 
             Console.WriteLine("--- Testing ClickEvent ---");
-            var myclient = new ET_Client();
+            var myclient = CreateClient();
 
             Console.WriteLine("Retrieve Filtered ClickEvents with GetMoreResults");
-            var oe = new ET_ClickEvent
+            var oe = new ETClickEvent
             {
                 AuthStub = myclient,
                 SearchFilter = new SimpleFilterPart { Property = "EventDate", SimpleOperator = SimpleOperators.greaterThan, DateValue = new[] { filterDate } },
@@ -27,7 +26,7 @@ namespace objsamples
             Console.WriteLine("Results Length: " + oeGet.Results.Length);
             Console.WriteLine("MoreResults: " + oeGet.MoreResults.ToString());
             // Since this could potentially return a large number of results, we do not want to print the results
-            //foreach (ET_ClickEvent ClickEvent in oeGet.Results)
+            //foreach (ETClickEvent ClickEvent in oeGet.Results)
             //    Console.WriteLine("SubscriberKey: " + ClickEvent.SubscriberKey + ", EventDate: " + ClickEvent.EventDate.ToString());
 
             while (oeGet.MoreResults)
@@ -44,7 +43,7 @@ namespace objsamples
 #if false
             // The following request could potentially bring back large amounts of data if run against a production account	
             Console.WriteLine("Retrieve All ClickEvents with GetMoreResults");
-            var oe2 = new ET_ClickEvent
+            var oe2 = new ETClickEvent
             {
                 AuthStub = myclient,
                 Props = new[] { "SendID", "SubscriberKey", "EventDate", "Client.ID", "EventType", "BatchID", "TriggeredSendDefinitionObjectID", "PartnerKey" },
@@ -57,7 +56,7 @@ namespace objsamples
             Console.WriteLine("Results Length: " + oeGetAll.Results.Length);
             Console.WriteLine("MoreResults: " + oeGetAll.MoreResults.ToString());
             // Since this could potentially return a large number of results, we do not want to print the results
-            //foreach (ET_ClickEvent ClickEvent in oeGet.Results)
+            //foreach (ETClickEvent ClickEvent in oeGet.Results)
             //    Console.WriteLine("SubscriberKey: " + ClickEvent.SubscriberKey + ", EventDate: " + ClickEvent.EventDate.ToString());
 
             while (oeGetAll.MoreResults)

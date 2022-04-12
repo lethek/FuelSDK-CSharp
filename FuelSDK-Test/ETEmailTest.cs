@@ -6,7 +6,7 @@ using System.Text;
 
 namespace FuelSDK.Test
 {
-    class ETEmailTest
+    class ETEmailTest : CommonTestFixture
     {
         ETClient client;
         ETEmail email;
@@ -18,7 +18,7 @@ namespace FuelSDK.Test
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            client = new ETClient();
+            client = new ETClient(GetSettings());
 
         }
 
@@ -57,13 +57,13 @@ namespace FuelSDK.Test
             }
         }
 
-        [Test()]
+        [Test]
         public void EmailCreate()
         {
             Assert.AreNotEqual(email, null);
         }
 
-        [Test()]
+        [Test]
         public void EmailUpdate()
         {
             var emailObj = new ETEmail
@@ -89,7 +89,7 @@ namespace FuelSDK.Test
             Assert.AreEqual(((ETEmail)getresponse.Results[0]).HTMLBody, emailUpdatedContent);
         }
 
-        [Test()]
+        [Test]
         public void EmailDelete()
         {
             var emailObj = new ETEmail
@@ -104,7 +104,7 @@ namespace FuelSDK.Test
             email = null;
         }
 
-        [Test()]
+        [Test]
         public void EmailGet()
         {
             var emailObj = new ETEmail

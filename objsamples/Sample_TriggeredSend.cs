@@ -1,24 +1,23 @@
 ﻿using FuelSDK;
-using System;
 
 namespace objsamples
 {
-    partial class Tester
+    partial class Program
     {
         static void TestET_TriggeredSend()
         {
-            var myclient = new ET_Client();
+            var myclient = CreateClient();
 
             Console.WriteLine("--- Testing TriggeredSend ---");
             var tsNameForCreateThenDelete = Guid.NewGuid().ToString();
             var existingTSDCustomerKey = "TEXTEXT";
 
             Console.WriteLine("\n Send Using an Existing Definition ");
-            var tsdSend = new ET_TriggeredSend
+            var tsdSend = new ETTriggeredSendDefinition
             {
                 AuthStub = myclient,
                 CustomerKey = existingTSDCustomerKey,
-                Subscribers = new[] { new ET_Subscriber { EmailAddress = "example@bh.exacttarget.com", SubscriberKey = "example@bh.exacttarget.com" } },
+                Subscribers = new[] { new ETSubscriber { EmailAddress = "example@bh.exacttarget.com", SubscriberKey = "example@bh.exacttarget.com" } },
             };
             var srSend = tsdSend.Send();
             Console.WriteLine("Send Status: " + srSend.Status.ToString());
@@ -27,7 +26,7 @@ namespace objsamples
             Console.WriteLine("Results Length: " + srSend.Results.Length);
 
             Console.WriteLine("\n Retrieve All TriggeredSend Definitions");
-            var tsdGetAll = new ET_TriggeredSend
+            var tsdGetAll = new ETTriggeredSendDefinition
             {
                 AuthStub = myclient,
                 Props = new[] { "CustomerKey", "Name", "TriggeredSendStatus" },
@@ -38,17 +37,17 @@ namespace objsamples
             Console.WriteLine("Message: " + grAllTSD.Message);
             Console.WriteLine("Code: " + grAllTSD.Code.ToString());
             Console.WriteLine("Results Length: " + grAllTSD.Results.Length);
-            foreach (ET_TriggeredSend result in grAllTSD.Results)
+            foreach (ETTriggeredSendDefinition result in grAllTSD.Results)
                 Console.WriteLine("--CustomerKey: " + result.CustomerKey + ", Name: " + result.Name + ", Status: " + result.TriggeredSendStatus.ToString());
 
             Console.WriteLine("\n Create a TriggeredSend Definition");
-            var tsd = new ET_TriggeredSend
+            var tsd = new ETTriggeredSendDefinition
             {
                 AuthStub = myclient,
                 Name = tsNameForCreateThenDelete,
                 CustomerKey = tsNameForCreateThenDelete,
-                Email = new ET_Email { ID = 3113962 },
-                SendClassification = new ET_SendClassification { CustomerKey = "2240" },
+                Email = new ETEmail { ID = 3113962 },
+                SendClassification = new ETSendClassification { CustomerKey = "2240" },
             };
             var prTSD = tsd.Post();
             Console.WriteLine("Post Status: " + prTSD.Status.ToString());
@@ -57,7 +56,7 @@ namespace objsamples
             Console.WriteLine("Results Length: " + prTSD.Results.Length);
 
             Console.WriteLine("\n Retrieve Single TriggeredSend");
-            var tsdGet = new ET_TriggeredSend
+            var tsdGet = new ETTriggeredSendDefinition
             {
                 AuthStub = myclient,
                 Props = new[] { "CustomerKey", "Name", "TriggeredSendStatus" },
@@ -68,11 +67,11 @@ namespace objsamples
             Console.WriteLine("Message: " + tsdGetSingle.Message);
             Console.WriteLine("Code: " + tsdGetSingle.Code.ToString());
             Console.WriteLine("Results Length: " + tsdGetSingle.Results.Length);
-            foreach (ET_TriggeredSend result in tsdGetSingle.Results)
+            foreach (ETTriggeredSendDefinition result in tsdGetSingle.Results)
                 Console.WriteLine("--CustomerKey: " + result.CustomerKey + ", Name: " + result.Name + ", Status: " + result.TriggeredSendStatus.ToString());
 
             Console.WriteLine("\n Start a TriggeredSend by setting to Active");
-            var tsdPatch = new ET_TriggeredSend
+            var tsdPatch = new ETTriggeredSendDefinition
             {
                 AuthStub = myclient,
                 CustomerKey = tsNameForCreateThenDelete,
@@ -90,15 +89,15 @@ namespace objsamples
             Console.WriteLine("Message: " + tsdGetSingle.Message);
             Console.WriteLine("Code: " + tsdGetSingle.Code.ToString());
             Console.WriteLine("Results Length: " + tsdGetSingle.Results.Length);
-            foreach (ET_TriggeredSend result in tsdGetSingle.Results)
+            foreach (ETTriggeredSendDefinition result in tsdGetSingle.Results)
                 Console.WriteLine("--CustomerKey: " + result.CustomerKey + ", Name: " + result.Name + ", Status: " + result.TriggeredSendStatus.ToString());
 
             Console.WriteLine("\n  Send using new definition");
-            var tsdSendNew = new ET_TriggeredSend
+            var tsdSendNew = new ETTriggeredSendDefinition
             {
                 AuthStub = myclient,
                 CustomerKey = tsNameForCreateThenDelete,
-                Subscribers = new[] { new ET_Subscriber { EmailAddress = "example@bh.exacttarget.com", SubscriberKey = "example@bh.exacttarget.com" } },
+                Subscribers = new[] { new ETSubscriber { EmailAddress = "example@bh.exacttarget.com", SubscriberKey = "example@bh.exacttarget.com" } },
             };
             var srSendnew = tsdSendNew.Send();
             Console.WriteLine("Send Status: " + srSendnew.Status.ToString());
@@ -115,7 +114,7 @@ namespace objsamples
             Console.WriteLine("Results Length: " + patchrTSD.Results.Length);
 
             Console.WriteLine("\n Delete a TriggeredSend Definition");
-            var tsdDelete = new ET_TriggeredSend
+            var tsdDelete = new ETTriggeredSendDefinition
             {
                 AuthStub = myclient,
                 CustomerKey = tsNameForCreateThenDelete,

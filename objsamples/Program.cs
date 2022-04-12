@@ -1,8 +1,13 @@
 ﻿using System;
 
+using FuelSDK;
+
+using FuelSDKCSharp;
+using Microsoft.Extensions.Configuration;
+
 namespace objsamples
 {
-    partial class Tester
+    partial class Program
     {
         static void Main(string[] args)
         {
@@ -91,7 +96,19 @@ namespace objsamples
                 default:
                     Console.WriteLine("Unrecognized Object: " + objectName.ToString());
                     break;
-            }
+}
+}
+
+
+        private static ETClient CreateClient()
+        {
+            var settings = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .AddUserSecrets<Program>(true)
+                .Build()
+                .Get<FuelSettings>();
+
+            return new ETClient(settings);
         }
     }
 }

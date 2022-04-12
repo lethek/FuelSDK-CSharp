@@ -1,22 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 using NUnit.Framework;
 
 namespace FuelSDK.Test
 {
-    class ETOpenEventTest
+    class ETOpenEventTest : CommonTestFixture
     {
         ETClient client;
 
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
-            client = new ETClient();
+            client = new ETClient(GetSettings());
         }
 
-        [Test()]
+        [Test]
         public void OpenEvent()
         {
             var filterDate = DateTime.Now.AddDays(-30);

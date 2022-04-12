@@ -1,23 +1,22 @@
 ﻿using FuelSDK;
-using System;
 
 namespace objsamples
 {
-    partial class Tester
+    partial class Program
     {
         static void TestET_Subscriber()
         {
-            var myclient = new ET_Client();
+            var myclient = CreateClient();
 
             Console.WriteLine("--- Testing Subscriber ---");
             var subscriberTestEmail = "CSharpSDKExample223@bh.exacttarget.com";
 
             Console.WriteLine("\n Create Subscriber");
-            var postSub = new ET_Subscriber
+            var postSub = new ETSubscriber
             {
                 AuthStub = myclient,
                 EmailAddress = subscriberTestEmail,
-                Attributes = new[] { new ET_ProfileAttribute { Name = "First Name", Value = "ExactTarget Example" } },
+                Attributes = new[] { new ETProfileAttribute { Name = "First Name", Value = "ExactTarget Example" } },
             };
             var postResponse = postSub.Post();
             Console.WriteLine("Post Status: " + postResponse.Status.ToString());
@@ -28,12 +27,12 @@ namespace objsamples
             if (postResponse.Results.Length > 0)
             {
                 Console.WriteLine("--NewID: " + postResponse.Results[0].NewID.ToString());
-                foreach (ET_ProfileAttribute attr in ((ET_Subscriber)postResponse.Results[0].Object).Attributes)
+                foreach (ETProfileAttribute attr in ((ETSubscriber)postResponse.Results[0].Object).Attributes)
                     Console.WriteLine("Name: " + attr.Name + ", Value: " + attr.Value);
             }
 
             Console.WriteLine("\n Retrieve newly created Subscriber");
-            var getSub = new ET_Subscriber
+            var getSub = new ETSubscriber
             {
                 AuthStub = myclient,
                 Props = new[] { "SubscriberKey", "EmailAddress", "Status" },
@@ -44,16 +43,16 @@ namespace objsamples
             Console.WriteLine("Message: " + getResponse.Message);
             Console.WriteLine("Code: " + getResponse.Code.ToString());
             Console.WriteLine("Results Length: " + getResponse.Results.Length);
-            foreach (ET_Subscriber sub in getResponse.Results)
+            foreach (ETSubscriber sub in getResponse.Results)
                 Console.WriteLine("--EmailAddress: " + sub.EmailAddress + " Status: " + sub.Status.ToString());
 
             Console.WriteLine("\n Update Subscriber");
-            var patchSub = new ET_Subscriber
+            var patchSub = new ETSubscriber
             {
                 AuthStub = myclient,
                 EmailAddress = subscriberTestEmail,
                 Status = SubscriberStatus.Unsubscribed,
-                Attributes = new[] { new ET_ProfileAttribute { Name = "First Name", Value = "ExactTarget Example" } },
+                Attributes = new[] { new ETProfileAttribute { Name = "First Name", Value = "ExactTarget Example" } },
             };
             var pathResponse = patchSub.Patch();
             Console.WriteLine("Patch Status: " + pathResponse.Status.ToString());
@@ -62,7 +61,7 @@ namespace objsamples
             Console.WriteLine("Results Length: " + pathResponse.Results.Length);
             foreach (ResultDetail rd in pathResponse.Results)
             {
-                var sub = (ET_Subscriber)rd.Object;
+                var sub = (ETSubscriber)rd.Object;
                 Console.WriteLine("--EmailAddress: " + sub.EmailAddress + " Status: " + sub.Status.ToString());
             }
 
@@ -72,11 +71,11 @@ namespace objsamples
             Console.WriteLine("Message: " + getResponse.Message);
             Console.WriteLine("Code: " + getResponse.Code.ToString());
             Console.WriteLine("Results Length: " + getResponse.Results.Length);
-            foreach (ET_Subscriber sub in getResponse.Results)
+            foreach (ETSubscriber sub in getResponse.Results)
                 Console.WriteLine("--EmailAddress: " + sub.EmailAddress + " Status: " + sub.Status.ToString());
 
             Console.WriteLine("\n Delete Subscriber");
-            var deleteSub = new ET_Subscriber
+            var deleteSub = new ETSubscriber
             {
                 AuthStub = myclient,
                 EmailAddress = subscriberTestEmail,
@@ -93,7 +92,7 @@ namespace objsamples
             Console.WriteLine("Message: " + getResponse.Message);
             Console.WriteLine("Code: " + getResponse.Code.ToString());
             Console.WriteLine("Results Length: " + getResponse.Results.Length);
-            foreach (ET_Subscriber sub in getResponse.Results)
+            foreach (ETSubscriber sub in getResponse.Results)
                 Console.WriteLine("--EmailAddress: " + sub.EmailAddress + " Status: " + sub.Status.ToString());
         }
     }
