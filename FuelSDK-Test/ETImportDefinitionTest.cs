@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 
-namespace FuelSDK.Test
+namespace FuelSDK
 {
     class ETImportDefinitionTest : CommonTestFixture
     {

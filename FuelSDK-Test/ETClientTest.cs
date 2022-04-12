@@ -1,13 +1,8 @@
 ﻿using NUnit.Framework;
-using System;
 using System.Reflection;
 
-using FuelSDKCSharp;
 
-using Microsoft.Extensions.Configuration;
-
-
-namespace FuelSDK.Test
+namespace FuelSDK
 {
     [TestFixture]
     class ETClientTest : CommonTestFixture

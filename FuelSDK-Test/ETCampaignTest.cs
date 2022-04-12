@@ -2,7 +2,7 @@
 using System;
 using Newtonsoft.Json.Linq;
 
-namespace FuelSDK.Test
+namespace FuelSDK
 {
     [TestFixture]
     public class ETCampaignTest : CommonTestFixture

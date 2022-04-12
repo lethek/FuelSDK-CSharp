@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using NUnit.Framework;
 
 using FuelSDKCSharp;
-namespace FuelSDK.Test
+namespace FuelSDK
 {
 [TestFixture]
     class FuelSDKConfigurationSectionTest : CustomConfigSectionBasedTest

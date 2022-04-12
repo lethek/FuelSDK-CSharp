@@ -3,7 +3,7 @@
 using FuelSDKCSharp;
 
 
-namespace FuelSDK.Test
+namespace FuelSDK
 {
     /// <summary>
     /// These tests are specific for OAuth2 Public/Web Apps, So Config should be modified accordingly.

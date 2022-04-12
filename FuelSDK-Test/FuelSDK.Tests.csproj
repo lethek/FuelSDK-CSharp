@@ -3,8 +3,10 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>disable</Nullable>
-    <IsPackable>false</IsPackable>
+	<IsPackable>false</IsPackable>
+	<ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>FuelSDK.Test-af4f0b2a-250c-4d8c-a1b3-10cfa408a19d</UserSecretsId>
+    <RootNamespace>FuelSDK</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FuelSDK-CSharp\FuelSDK-CSharp.csproj" />
+    <ProjectReference Include="..\FuelSDK-CSharp\FuelSDK.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace FuelSDK.Test
+namespace FuelSDK
 {
     class ETListTest : CommonTestFixture
     {

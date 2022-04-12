@@ -2,7 +2,7 @@
 
 using NUnit.Framework;
 
-namespace FuelSDK.Test
+namespace FuelSDK
 {
     class ETOpenEventTest : CommonTestFixture
     {

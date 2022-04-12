@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-namespace FuelSDK.Test
+namespace FuelSDK
 {
     [TestFixture]
     public class StackKeyTest : CommonTestFixture

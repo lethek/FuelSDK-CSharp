@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 
-namespace FuelSDK.Test
+namespace FuelSDK
 {
     /// <summary>
     /// Marketing cloud API only supports Data Extension Column get operation.

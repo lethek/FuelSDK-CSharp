@@ -2,7 +2,7 @@
 using System;
 
 
-namespace FuelSDK.Test
+namespace FuelSDK
 {
     [TestFixture]
     public class ETContentAreaTest : CommonTestFixture

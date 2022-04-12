@@ -2,7 +2,7 @@
 
 using Microsoft.Extensions.Configuration;
 
-namespace FuelSDK.Test
+namespace FuelSDK
 {
     public class CommonTestFixture
     {

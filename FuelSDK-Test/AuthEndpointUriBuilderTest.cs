@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace FuelSDK.Test
+namespace FuelSDK
 {
     [TestFixture]
     public class AuthEndpointUriBuilderTest : CustomConfigSectionBasedTest
