@@ -10,7 +10,8 @@
 
 namespace FuelSDK
 {
-    #pragma warning disable CS0472 // The result of the expression is always the same since a value of this type is never equal to 'null'
+#pragma warning disable CS0472 // The result of the expression is always the same since a value of this type is never equal to 'null'
+#pragma warning disable CS8073 // The result of the expression is always 'true' since a value of type 'DateTime' is never equal to 'null' of type 'DateTime?'
 
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(Namespace="http://exacttarget.com/wsdl/partnerAPI", ConfigurationName="FuelSDK.Soap")]
@@ -30139,5 +30140,6 @@ namespace FuelSDK
         }
     }
 
-    #pragma warning restore CS0472 // The result of the expression is always the same since a value of this type is never equal to 'null'
+#pragma warning restore CS0472 // The result of the expression is always the same since a value of this type is never equal to 'null'
+#pragma warning restore CS8073 // The result of the expression is always 'true' since a value of type 'DateTime' is never equal to 'null' of type 'DateTime?'
 }
