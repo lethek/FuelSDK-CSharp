@@ -2,7 +2,6 @@
 
 using FuelSDK;
 
-using FuelSDKCSharp;
 using Microsoft.Extensions.Configuration;
 
 namespace objsamples

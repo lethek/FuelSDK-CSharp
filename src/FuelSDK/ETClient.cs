@@ -7,8 +7,6 @@ using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.Xml.Linq;
 
-using FuelSDKCSharp;
-
 using JWT;
 using JWT.Algorithms;
 using JWT.Serializers;

@@ -5,15 +5,12 @@
     <Nullable>disable</Nullable>
 	<IsPackable>false</IsPackable>
 	<ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>FuelSDK.Test-af4f0b2a-250c-4d8c-a1b3-10cfa408a19d</UserSecretsId>
     <RootNamespace>FuelSDK</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
@@ -28,9 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="ConfigFiles\allPropertiesSet.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

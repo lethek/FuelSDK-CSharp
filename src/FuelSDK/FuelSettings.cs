@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace FuelSDKCSharp;
+namespace FuelSDK;
 
 public record FuelSettings
 {

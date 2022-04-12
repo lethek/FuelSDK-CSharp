@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 using NUnit.Framework;
 
-using FuelSDKCSharp;
 namespace FuelSDK
 {
-[TestFixture]
-    class FuelSDKConfigurationSectionTest : CustomConfigSectionBasedTest
+    [TestFixture]
+    class FuelSettingsTest : CommonTestFixture
     {
         [Test]
         public void NoCustomConfigSection()

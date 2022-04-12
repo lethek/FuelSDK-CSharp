@@ -3,7 +3,7 @@
 namespace FuelSDK
 {
     [TestFixture]
-    public class AuthEndpointUriBuilderTest : CustomConfigSectionBasedTest
+    public class AuthEndpointUriBuilderTest : CommonTestFixture
     {
         [Test]
         public void BuilderAddsLegacyQueryParamWhenNoParamsArePresent()

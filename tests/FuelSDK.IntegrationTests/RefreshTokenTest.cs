@@ -1,7 +1,5 @@
 ﻿using NUnit.Framework;
 
-using FuelSDKCSharp;
-
 
 namespace FuelSDK
 {

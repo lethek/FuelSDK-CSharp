@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace FuelSDKCSharp;
+namespace FuelSDK;
 
 public static class FuelSettingsExtensions
 {
