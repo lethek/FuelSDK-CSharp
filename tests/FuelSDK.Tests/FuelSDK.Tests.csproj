@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FuelSDK-CSharp\FuelSDK.csproj" />
+    <ProjectReference Include="..\..\src\FuelSDK\FuelSDK.csproj" />
   </ItemGroup>
 
   <ItemGroup>
