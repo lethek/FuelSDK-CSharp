@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<TargetFrameworks>netstandard2.0;netstandard2.1;net6.0</TargetFrameworks>
+		<ApplicationIcon />
+		<StartupObject />
+		<LangVersion>latest</LangVersion>
+		<Copyright>Copyright © Salesforce 2017</Copyright>
+		<RepositoryUrl>https://github.com/lethek/FuelSDK-CSharp</RepositoryUrl>
+		<PackageProjectUrl>https://salesforce.com</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<Authors>Salesforce</Authors>
+		<Description>The Fuel SDK for C# provides easy access to Salesforce Marketing Cloud's (ExactTarget) Fuel API Family services, including a collection of REST APIs and a SOAP API. These APIs provide access to Salesforce Marketing Cloud functionality via common collection types.</Description>
+		<PackageTags>FuelSdk;Salesforce Marketing Cloud;ExactTarget;SFMC;Salesforce</PackageTags>
+		<AnalysisLevel>latest</AnalysisLevel>
+	</PropertyGroup>
+	<ItemGroup>
+		<InternalsVisibleTo Include="$(AssemblyName).Tests" />
+		<InternalsVisibleTo Include="$(AssemblyName).IntegrationTests" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="JWT" Version="8.9.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+		<PackageReference Include="System.ServiceModel.Http" Version="4.9.0" />
+		<PackageReference Include="System.ServiceModel.Security" Version="4.9.0" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="..\..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+</Project>

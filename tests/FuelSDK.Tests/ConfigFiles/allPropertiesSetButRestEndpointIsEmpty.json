@@ -1,0 +1,8 @@
+﻿{
+  "appSignature": "none",
+  "clientId": "abc",
+  "clientSecret": "cde",
+  "soapEndPoint": "https://soapendpoint.com",
+  "authEndPoint": "https://authendpoint.com",
+  "restEndPoint": ""
+}
