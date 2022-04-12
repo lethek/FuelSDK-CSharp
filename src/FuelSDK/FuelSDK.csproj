@@ -11,6 +11,9 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Authors>Salesforce</Authors>
+		<Description>The Fuel SDK for C# provides easy access to Salesforce Marketing Cloud's (ExactTarget) Fuel API Family services, including a collection of REST APIs and a SOAP API. These APIs provide access to Salesforce Marketing Cloud functionality via common collection types.</Description>
+		<PackageTags>FuelSdk;Salesforce Marketing Cloud;ExactTarget;SFMC;Salesforce</PackageTags>
+		<AnalysisLevel>latest</AnalysisLevel>
 	</PropertyGroup>
 	<ItemGroup>
 		<InternalsVisibleTo Include="$(AssemblyName).Tests" />
