@@ -14,16 +14,28 @@ namespace FuelSDK
         /// </summary>
         /// <value>The name of the data extension.</value>
 		public string DataExtensionName { get; set; }
+
         /// <summary>
         /// Gets or sets the data extension customer key.
         /// </summary>
         /// <value>The data extension customer key.</value>
 		public string DataExtensionCustomerKey { get; set; }
+
         /// <summary>
         /// Gets or sets the column values.
         /// </summary>
         /// <value>The column values.</value>
 		public Dictionary<string, string> ColumnValues { get; set; }
+
+        /// <summary>
+        /// Gets or sets the column values.
+        /// </summary>
+        /// <value>The column values.</value>
+        public string this[string columnName] {
+            get => ColumnValues[columnName];
+            set => ColumnValues[columnName] = value;
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="T:FuelSDK.ETDataExtensionRow"/> class.
         /// </summary>
