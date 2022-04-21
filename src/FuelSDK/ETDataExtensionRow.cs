@@ -41,7 +41,7 @@ namespace FuelSDK
         /// </summary>
 		public ETDataExtensionRow()
 		{
-			ColumnValues = new Dictionary<string, string>();
+			ColumnValues = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
 		}
 		/// <summary>
 		/// Post this instance.
@@ -103,7 +103,7 @@ namespace FuelSDK
 			LastRequestID = r.RequestID;
 			foreach (ETDataExtensionRow dr in r.Results)
 			{
-				dr.ColumnValues = dr.Properties.ToDictionary(x => x.Name, x => x.Value);
+				dr.ColumnValues = dr.Properties.ToDictionary(x => x.Name, x => x.Value, StringComparer.InvariantCultureIgnoreCase);
 				dr.Properties = null;
 			}
 			return r;
@@ -119,7 +119,7 @@ namespace FuelSDK
 			LastRequestID = r.RequestID;
 			foreach (ETDataExtensionRow dr in r.Results)
 			{
-				dr.ColumnValues = dr.Properties.ToDictionary(x => x.Name, x => x.Value);
+				dr.ColumnValues = dr.Properties.ToDictionary(x => x.Name, x => x.Value, StringComparer.InvariantCultureIgnoreCase);
 				dr.Properties = null;
 			}
 			return r;
