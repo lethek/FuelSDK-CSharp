@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.Xml.Linq;
@@ -147,10 +148,14 @@ namespace FuelSDK
         /// <param name="inputObject">Input <see cref="T:FuelSDK.APIObject"/> object.</param>
 		public APIObject TranslateObject(APIObject inputObject)
 		{
-			if (_translators.ContainsKey(inputObject.GetType()))
+            var inputType = inputObject.GetType();
+			if (_translators.ContainsKey(inputType))
 			{
-				var returnObject = (APIObject)Activator.CreateInstance(_translators[inputObject.GetType()]);
-				foreach (var prop in inputObject.GetType().GetProperties())
+
+				var returnObject = (APIObject)Activator.CreateInstance(_translators[inputType]);
+                var properties = inputType.GetProperties().Except(inputType.GetDefaultMembers().OfType<PropertyInfo>());
+
+                foreach (var prop in properties)
 				{
 					if (prop.Name == "UniqueID")
 						continue;
@@ -176,14 +181,14 @@ namespace FuelSDK
 					}
 					else if (prop.Name == "FolderID" && propValue != null)
 					{
-						if (inputObject.GetType().GetProperty("Category") != null)
+						if (inputType.GetProperty("Category") != null)
 						{
-							var categoryIDProp = inputObject.GetType().GetProperty("Category");
+							var categoryIDProp = inputType.GetProperty("Category");
 							categoryIDProp.SetValue(returnObject, propValue, null);
 						}
-						else if (inputObject.GetType().GetProperty("CategoryID") != null)
+						else if (inputType.GetProperty("CategoryID") != null)
 						{
-							var categoryIDProp = inputObject.GetType().GetProperty("CategoryID");
+							var categoryIDProp = inputType.GetProperty("CategoryID");
 							categoryIDProp.SetValue(returnObject, propValue, null);
 						}
 					}
@@ -214,10 +219,12 @@ namespace FuelSDK
         /// <param name="inputObject">Input <see cref="T:FuelSDK.APIObject"/> object.</param>
         public APIObject TranslateObject2(APIObject inputObject)
         {
-            if (_translators2.ContainsKey(inputObject.GetType()))
+            var inputType = inputObject.GetType();
+            if (_translators2.ContainsKey(inputType))
             {
-                var returnObject = (APIObject)Activator.CreateInstance(_translators2[inputObject.GetType()]);
-                foreach (var prop in inputObject.GetType().GetProperties())
+                var returnObject = (APIObject)Activator.CreateInstance(_translators2[inputType]);
+                var properties = inputType.GetProperties().Except(inputType.GetDefaultMembers().OfType<PropertyInfo>());
+                foreach (var prop in inputType.GetProperties())
                 {
                     if (prop.Name == "UniqueID")
                         continue;
@@ -243,14 +250,14 @@ namespace FuelSDK
                     }
                     else if (prop.Name == "FolderID" && propValue != null)
                     {
-                        if (inputObject.GetType().GetProperty("Category") != null)
+                        if (inputType.GetProperty("Category") != null)
                         {
-                            var categoryIDProp = inputObject.GetType().GetProperty("Category");
+                            var categoryIDProp = inputType.GetProperty("Category");
                             categoryIDProp.SetValue(returnObject, propValue, null);
                         }
-                        else if (inputObject.GetType().GetProperty("CategoryID") != null)
+                        else if (inputType.GetProperty("CategoryID") != null)
                         {
-                            var categoryIDProp = inputObject.GetType().GetProperty("CategoryID");
+                            var categoryIDProp = inputType.GetProperty("CategoryID");
                             categoryIDProp.SetValue(returnObject, propValue, null);
                         }
                     }
@@ -276,10 +283,11 @@ namespace FuelSDK
 
 		protected object TranslateObject(object inputObject)
 		{
-			if (_translators.ContainsKey(inputObject.GetType()))
+            var inputType = inputObject.GetType();
+            if (_translators.ContainsKey(inputType))
 			{
-				var returnObject = (object)Activator.CreateInstance(_translators[inputObject.GetType()]);
-				foreach (var prop in inputObject.GetType().GetProperties())
+				var returnObject = (object)Activator.CreateInstance(_translators[inputType]);
+				foreach (var prop in inputType.GetProperties())
 				{
 					if (prop.Name == "UniqueID")
 						continue;
@@ -295,10 +303,11 @@ namespace FuelSDK
 
         protected object TranslateObject2(object inputObject)
         {
-            if (_translators2.ContainsKey(inputObject.GetType()))
+            var inputType = inputObject.GetType();
+            if (_translators2.ContainsKey(inputType))
             {
-                var returnObject = (object)Activator.CreateInstance(_translators2[inputObject.GetType()]);
-                foreach (var prop in inputObject.GetType().GetProperties())
+                var returnObject = (object)Activator.CreateInstance(_translators2[inputType]);
+                foreach (var prop in inputType.GetProperties())
                 {
                     if (prop.Name == "UniqueID")
                         continue;
@@ -308,8 +317,6 @@ namespace FuelSDK
                 return returnObject;
             }
             return inputObject;
-
-
         }
 		
 
